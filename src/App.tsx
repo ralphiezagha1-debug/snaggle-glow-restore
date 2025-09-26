@@ -21,6 +21,13 @@ import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import Orders from "./pages/Orders";
 import Wallet from "./pages/Wallet";
+import Search from "./pages/Search";
+import Categories from "./pages/Categories";
+import CategoryDetail from "./pages/CategoryDetail";
+import Help from "./pages/Help";
+import Error500 from "./pages/Error500";
+import TermsOfService from "./pages/TermsOfService";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,19 +45,26 @@ const App = () => (
               <Route path="/" element={<Home />} />
               <Route path="/auctions" element={<Auctions />} />
               <Route path="/auctions/:id" element={<AuctionDetail />} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/categories" element={<Categories />} />
+              <Route path="/categories/:slug" element={<CategoryDetail />} />
               <Route path="/how-it-works" element={<HowItWorks />} />
               <Route path="/credits" element={<Credits />} />
               <Route path="/faq" element={<FAQ />} />
+              <Route path="/help" element={<Help />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/waitlist" element={<Waitlist />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/privacy" element={<Privacy />} />
+              <Route path="/legal/terms" element={<TermsOfService />} />
+              <Route path="/legal/privacy" element={<PrivacyPolicy />} />
               <Route path="/signin" element={<Signin />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/orders" element={<Orders />} />
               <Route path="/wallet" element={<Wallet />} />
+              <Route path="/500" element={<Error500 />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>

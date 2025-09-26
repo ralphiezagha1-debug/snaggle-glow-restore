@@ -2,62 +2,69 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Snaggle Design System - Green/Black Gradient Theme */
+/* Snaggle Design System - Purple/Gold/Green Theme */
 
 @layer base {
   :root {
-    /* Core Background System */
-    --background: 0 0% 3%;
-    --foreground: 0 0% 98%;
+    /* Core Background System - Light Theme */
+    --background: 0 0% 98%;
+    --foreground: 0 0% 5%;
     
-    /* Snaggle Green Palette */
+    /* Snaggle Brand Colors */
+    --snaggle-purple: 270 95% 75%;
+    --snaggle-purple-dark: 270 95% 65%;
+    --snaggle-purple-light: 270 95% 85%;
+    --snaggle-gold: 45 100% 60%;
+    --snaggle-gold-dark: 45 100% 50%;
+    --snaggle-gold-light: 45 100% 70%;
     --snaggle-green: 142 86% 55%;
     --snaggle-green-dark: 142 86% 45%;
     --snaggle-green-light: 142 86% 65%;
-    --snaggle-green-glow: 142 86% 55%;
     
     /* Card System */
-    --card: 0 0% 6%;
-    --card-foreground: 0 0% 95%;
-    --card-border: 0 0% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 5%;
+    --card-border: 0 0% 88%;
     
-    /* Primary Actions (Snaggle Green) */
-    --primary: 142 86% 55%;
-    --primary-foreground: 0 0% 3%;
-    --primary-hover: 142 86% 45%;
+    /* Primary Actions (Snaggle Purple) */
+    --primary: 270 95% 75%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 270 95% 65%;
     
     /* Secondary Actions */
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 0 0% 85%;
-    --secondary-hover: 0 0% 15%;
+    --secondary: 0 0% 88%;
+    --secondary-foreground: 0 0% 15%;
+    --secondary-hover: 0 0% 82%;
     
     /* Muted/Subtle */
-    --muted: 0 0% 8%;
-    --muted-foreground: 0 0% 60%;
+    --muted: 0 0% 92%;
+    --muted-foreground: 0 0% 40%;
     
-    /* Accent */
-    --accent: 0 0% 10%;
-    --accent-foreground: 0 0% 90%;
+    /* Accent (Gold) */
+    --accent: 45 100% 60%;
+    --accent-foreground: 0 0% 5%;
     
     /* Destructive */
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
     
     /* Borders & Inputs */
-    --border: 0 0% 12%;
-    --input: 0 0% 8%;
-    --input-border: 0 0% 15%;
-    --ring: 142 86% 55%;
+    --border: 0 0% 88%;
+    --input: 0 0% 96%;
+    --input-border: 0 0% 85%;
+    --ring: 270 95% 75%;
     
-    /* Gradients */
-    --gradient-radial: radial-gradient(circle at 50% 50%, hsl(142 86% 55% / 0.15) 0%, hsl(0 0% 3%) 50%);
-    --gradient-hero: radial-gradient(ellipse at center, hsl(142 86% 55% / 0.2) 0%, hsl(0 0% 3%) 70%);
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 6%), hsl(0 0% 4%));
+    /* Gradients - Reduced intensity */
+    --gradient-radial: radial-gradient(circle at 50% 50%, hsl(270 95% 75% / 0.03) 0%, hsl(0 0% 98%) 50%);
+    --gradient-hero: radial-gradient(ellipse at center, hsl(270 95% 75% / 0.05) 0%, hsl(0 0% 98%) 70%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(0 0% 98%));
     
-    /* Shadows & Glows */
-    --shadow-glow: 0 0 40px hsl(142 86% 55% / 0.3);
-    --shadow-card: 0 8px 32px hsl(0 0% 0% / 0.4);
-    --shadow-button: 0 0 20px hsl(142 86% 55% / 0.4);
+    /* Shadows & Glows - Reduced intensity */
+    --shadow-glow-sm: 0 0 20px hsl(270 95% 75% / 0.1);
+    --shadow-glow-md: 0 0 40px hsl(270 95% 75% / 0.15);
+    --shadow-glow-lg: 0 0 60px hsl(270 95% 75% / 0.2);
+    --shadow-card: 0 8px 32px hsl(0 0% 0% / 0.1);
+    --shadow-button: 0 0 20px hsl(270 95% 75% / 0.15);
     
     --radius: 0.75rem;
 
@@ -82,6 +89,21 @@
     min-height: 100vh;
   }
   
+  /* Dark theme overrides */
+  .dark {
+    --background: 0 0% 3%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 95%;
+    --card-border: 0 0% 12%;
+    --muted: 0 0% 8%;
+    --muted-foreground: 0 0% 60%;
+    --border: 0 0% 12%;
+    --input: 0 0% 8%;
+    --gradient-radial: radial-gradient(circle at 50% 50%, hsl(270 95% 75% / 0.08) 0%, hsl(0 0% 3%) 50%);
+    --gradient-hero: radial-gradient(ellipse at center, hsl(270 95% 75% / 0.1) 0%, hsl(0 0% 3%) 70%);
+  }
+  
   /* Scrollbar styling for dark theme */
   ::-webkit-scrollbar {
     width: 8px;
@@ -102,13 +124,25 @@
 }
 
 @layer components {
-  /* Glow utilities */
+  /* Glow utilities with intensity control */
+  .snaggle-glow-sm {
+    box-shadow: var(--shadow-glow-sm);
+  }
+  
+  .snaggle-glow-md {
+    box-shadow: var(--shadow-glow-md);
+  }
+  
+  .snaggle-glow-lg {
+    box-shadow: var(--shadow-glow-lg);
+  }
+  
   .glow-green {
-    box-shadow: var(--shadow-glow);
+    box-shadow: var(--shadow-glow-sm);
   }
   
   .glow-green-hover:hover {
-    box-shadow: var(--shadow-glow);
+    box-shadow: var(--shadow-glow-md);
   }
   
   /* Gradient backgrounds */
