@@ -13,9 +13,11 @@ const Navbar = () => {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/auctions", label: "Auctions" },
+    { href: "/categories", label: "Categories" },
+    { href: "/search", label: "Search" },
     { href: "/how-it-works", label: "How It Works" },
     { href: "/credits", label: "Credits" },
-    { href: "/faq", label: "FAQ" },
+    { href: "/help", label: "Help" },
   ];
 
   const accountLinks = [
