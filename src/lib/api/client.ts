@@ -16,8 +16,8 @@ import {
 } from './types';
 
 // API Client Configuration
-const API_BASE_URL = process.env.VITE_API_BASE_URL || 'https://api.snaggle.fun';
-const API_MODE = process.env.VITE_API_MODE || 'mock';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.snaggle.fun';
+const API_MODE = import.meta.env.VITE_API_MODE || 'mock';
 
 class ApiClient {
   private baseUrl: string;
