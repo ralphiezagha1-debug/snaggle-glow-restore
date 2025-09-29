@@ -255,8 +255,8 @@ const Auctions = () => {
                       </Link>
                     </Button>
                     <Button asChild size="sm" className="flex-1 glow-green-hover">
-                      <Link to={`/auctions/${auction.id}`}>
-                        Place Bid
+                      <Link to={`/live/${auction.id}`}>
+                        Join Live
                       </Link>
                     </Button>
                   </div>
