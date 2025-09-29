@@ -34,7 +34,6 @@ import Live from "./pages/Live";
 import { Feed } from "./pages/Feed";
 import { Leaderboards } from "./pages/Leaderboards";
 import { AuctionRoomPage } from "./pages/AuctionRoom";
-import { ProfilePage } from "@/features/social/ProfilePage";
 
 const queryClient = new QueryClient();
 
@@ -70,8 +69,7 @@ const App = () => (
               <Route path="/ui" element={<UI />} />
               <Route path="/signin" element={<Signin />} />
               <Route path="/signup" element={<Signup />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/profiles/:id" element={<ProfilePage userId="mock-user-1" />} />
+              <Route path="/profiles/:id" element={<Profile />} />
               <Route path="/feed" element={<Feed />} />
               <Route path="/leaderboards" element={<Leaderboards />} />
               <Route path="/orders" element={<Orders />} />
