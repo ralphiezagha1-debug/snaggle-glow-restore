@@ -64,49 +64,47 @@ const Live = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {liveAuctions.map((auction) => (
-                <Card key={auction.id} className="group hover:shadow-lg transition-shadow overflow-hidden">
-                  <div className="relative">
-                    <img 
-                      src={auction.thumbnail}
-                      alt={auction.title}
-                      className="w-full h-48 object-cover"
-                    />
-                    <div className="absolute top-2 left-2">
-                      <Badge className="bg-red-500 text-white animate-pulse">
-                        <Play className="w-3 h-3 mr-1" />
-                        LIVE
-                      </Badge>
-                    </div>
-                    <div className="absolute top-2 right-2">
-                      <Badge variant="secondary" className="bg-black/60 text-white">
-                        <Users className="w-3 h-3 mr-1" />
-                        {auction.viewers}
-                      </Badge>
-                    </div>
-                  </div>
-                  
-                  <CardContent className="p-4">
-                    <h3 className="font-semibold mb-2 line-clamp-2">{auction.title}</h3>
-                    <p className="text-sm text-muted-foreground mb-3">by {auction.host}</p>
-                    
-                    <div className="flex justify-between items-center mb-4">
-                      <div>
-                        <p className="text-sm text-muted-foreground">Current Bid</p>
-                        <p className="text-xl font-bold text-snaggle-green">${auction.currentPrice.toLocaleString()}</p>
+                <Link key={auction.id} to={`/live/${auction.id}`}>
+                  <Card className="group hover:shadow-lg transition-all duration-300 cursor-pointer hover:border-primary/50 overflow-hidden">
+                    <div className="relative">
+                      <img 
+                        src={auction.thumbnail}
+                        alt={auction.title}
+                        className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute top-2 left-2">
+                        <Badge className="bg-red-500 text-white animate-pulse">
+                          <Play className="w-3 h-3 mr-1" />
+                          LIVE
+                        </Badge>
                       </div>
-                      <div className="text-right">
-                        <p className="text-sm text-muted-foreground flex items-center">
-                          <Clock className="w-3 h-3 mr-1" />
-                          {auction.timeLeft}
-                        </p>
+                      <div className="absolute top-2 right-2">
+                        <Badge variant="secondary" className="bg-black/60 text-white">
+                          <Users className="w-3 h-3 mr-1" />
+                          {auction.viewers}
+                        </Badge>
                       </div>
                     </div>
                     
-                    <Button asChild className="w-full">
-                      <Link to={`/live/${auction.id}`}>Join Auction</Link>
-                    </Button>
-                  </CardContent>
-                </Card>
+                    <CardContent className="p-4">
+                      <h3 className="font-semibold mb-2 line-clamp-2 group-hover:text-primary transition-colors">{auction.title}</h3>
+                      <p className="text-sm text-muted-foreground mb-3">by {auction.host}</p>
+                      
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <p className="text-sm text-muted-foreground">Current Bid</p>
+                          <p className="text-xl font-bold text-snaggle-green">${auction.currentPrice.toLocaleString()}</p>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-sm text-muted-foreground flex items-center">
+                            <Clock className="w-3 h-3 mr-1" />
+                            {auction.timeLeft}
+                          </p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
               ))}
             </div>
           </TabsContent>
