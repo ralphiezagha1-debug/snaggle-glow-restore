@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Gavel, User, Wallet } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Menu, Gavel, User, Wallet, Search } from "lucide-react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,10 +16,7 @@ const Navbar = () => {
     { href: "/live", label: "Live" },
     { href: "/auctions", label: "Auctions" },
     { href: "/categories", label: "Categories" },
-    { href: "/search", label: "Search" },
-    { href: "/how-it-works", label: "How It Works" },
     { href: "/credits", label: "Credits" },
-    { href: "/help", label: "Help" },
   ];
 
   const accountLinks = [
@@ -56,8 +54,18 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Desktop Actions */}
-          <div className="hidden md:flex items-center space-x-4">
+          {/* Search Bar & Actions */}
+          <div className="flex items-center space-x-4">
+            {/* Search Bar */}
+            <div className="hidden lg:flex relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search auctions..."
+                className="pl-10 w-64"
+              />
+            </div>
+
+            {/* Account Actions */}
             <Button variant="ghost" asChild>
               <Link to="/signin">Sign In</Link>
             </Button>
