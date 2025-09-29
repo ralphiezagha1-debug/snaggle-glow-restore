@@ -31,6 +31,10 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFound from "./pages/NotFound";
 import UI from "./pages/UI";
 import Live from "./pages/Live";
+import { Feed } from "./pages/Feed";
+import { Leaderboards } from "./pages/Leaderboards";
+import { AuctionRoomPage } from "./pages/AuctionRoom";
+import { ProfilePage } from "@/features/social/ProfilePage";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +50,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/live" element={<Live />} />
+              <Route path="/live/:id" element={<AuctionRoomPage />} />
               <Route path="/auctions" element={<Auctions />} />
               <Route path="/auctions/:id" element={<AuctionDetail />} />
               <Route path="/search" element={<Search />} />
@@ -66,6 +71,9 @@ const App = () => (
               <Route path="/signin" element={<Signin />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/profiles/:id" element={<ProfilePage userId="mock-user-1" />} />
+              <Route path="/feed" element={<Feed />} />
+              <Route path="/leaderboards" element={<Leaderboards />} />
               <Route path="/orders" element={<Orders />} />
               <Route path="/wallet" element={<Wallet />} />
               <Route path="/500" element={<Error500 />} />

@@ -99,14 +99,14 @@ const handleAuctionRoutes = (
     if (!auction) {
       throw new Error('Auction not found');
     }
-    return { success: true, data: auction as T };
+    return { success: true, data: auction };
   }
   
   if (path.match(/^\/auctions\/([a-zA-Z0-9-]+)\/bid$/) && method === 'POST') {
     // Mock bid placement
     const auctionId = path.split('/')[2];
     const mockBid = mockBids.find(b => b.auctionId === auctionId);
-    return { success: true, data: mockBid as T };
+    return { success: true, data: mockBid };
   }
   
   if (path.match(/^\/auctions\/([a-zA-Z0-9-]+)\/bids$/)) {
@@ -125,19 +125,19 @@ const handleAuctionRoutes = (
 };
 
 // User route handlers
-const handleUserRoutes = <T>(
+const handleUserRoutes = (
   path: string, 
   method: string, 
   params: URLSearchParams,
   options: RequestInit
-): ApiResponse<T> => {
+): ApiResponse<any> => {
   if (path.match(/^\/users\/([a-zA-Z0-9-]+)$/)) {
     const id = path.split('/')[2];
     const user = mockUsers.find(u => u.id === id);
     if (!user) {
       throw new Error('User not found');
     }
-    return { success: true, data: user as T };
+    return { success: true, data: user };
   }
   
   if (path.match(/^\/users\/([a-zA-Z0-9-]+)\/profile$/)) {
@@ -146,141 +146,141 @@ const handleUserRoutes = <T>(
     if (!user) {
       throw new Error('User not found');
     }
-    return { success: true, data: user as T };
+    return { success: true, data: user };
   }
   
   if (path.match(/^\/users\/([a-zA-Z0-9-]+)\/achievements$/)) {
     const userId = path.split('/')[2];
     const userAchievements = mockAchievements.filter(a => a.id.includes(userId));
-    return createPaginatedResponse(userAchievements, params);
+    return createPaginatedResponse(userAchievements, params) as any;
   }
   
   if (path.match(/^\/users\/([a-zA-Z0-9-]+)\/followers$/)) {
     const followers = mockUsers.slice(0, 5); // Mock followers
-    return createPaginatedResponse(followers, params);
+    return createPaginatedResponse(followers, params) as any;
   }
   
   if (path.match(/^\/users\/([a-zA-Z0-9-]+)\/following$/)) {
     const following = mockUsers.slice(2, 7); // Mock following
-    return createPaginatedResponse(following, params);
+    return createPaginatedResponse(following, params) as any;
   }
   
   if (path.match(/^\/users\/([a-zA-Z0-9-]+)\/follow$/) && method === 'POST') {
-    return { success: true, data: true as T };
+    return { success: true, data: true };
   }
   
   if (path.match(/^\/users\/([a-zA-Z0-9-]+)\/follow$/) && method === 'DELETE') {
-    return { success: true, data: true as T };
+    return { success: true, data: true };
   }
 
   throw new Error(`User route not implemented: ${path}`);
 };
 
 // Chat route handlers
-const handleChatRoutes = <T>(
+const handleChatRoutes = (
   path: string, 
   method: string, 
   params: URLSearchParams,
   options: RequestInit
-): ApiResponse<T> => {
+): ApiResponse<any> => {
   if (path.match(/^\/chat\/([a-zA-Z0-9-]+)\/messages$/)) {
     const roomId = path.split('/')[2];
     const roomMessages = mockChatMessages.filter(m => m.roomId === roomId);
-    return createPaginatedResponse(roomMessages, params);
+    return createPaginatedResponse(roomMessages, params) as any;
   }
   
   if (path.match(/^\/chat\/([a-zA-Z0-9-]+)\/messages$/) && method === 'POST') {
     // Mock message sending
     const roomId = path.split('/')[2];
     const mockMessage = mockChatMessages[0];
-    return { success: true, data: { ...mockMessage, roomId } as T };
+    return { success: true, data: { ...mockMessage, roomId } };
   }
 
   throw new Error(`Chat route not implemented: ${path}`);
 };
 
 // Feed route handlers
-const handleFeedRoutes = <T>(
+const handleFeedRoutes = (
   path: string, 
   method: string, 
   params: URLSearchParams,
   options: RequestInit
-): ApiResponse<T> => {
+): ApiResponse<any> => {
   if (path === '/feed') {
-    return createPaginatedResponse(mockActivityFeed, params);
+    return createPaginatedResponse(mockActivityFeed, params) as any;
   }
 
   throw new Error(`Feed route not implemented: ${path}`);
 };
 
 // Leaderboard route handlers
-const handleLeaderboardRoutes = <T>(
+const handleLeaderboardRoutes = (
   path: string, 
   method: string, 
   params: URLSearchParams,
   options: RequestInit
-): ApiResponse<T> => {
+): ApiResponse<any> => {
   if (path.match(/^\/leaderboards\/([a-zA-Z0-9_]+)$/)) {
     const category = path.split('/')[2];
     const period = params.get('period') || 'weekly';
     const leaderboard = mockLeaderboards[category] || mockLeaderboards.wins;
-    return createPaginatedResponse(leaderboard, params);
+    return createPaginatedResponse(leaderboard, params) as any;
   }
 
   throw new Error(`Leaderboard route not implemented: ${path}`);
 };
 
 // Listing route handlers
-const handleListingRoutes = <T>(
+const handleListingRoutes = (
   path: string, 
   method: string, 
   params: URLSearchParams,
   options: RequestInit
-): ApiResponse<T> => {
+): ApiResponse<any> => {
   if (path === '/listings') {
-    return createPaginatedResponse(mockListings, params);
+    return createPaginatedResponse(mockListings, params) as any;
   }
   
   if (path === '/listings' && method === 'POST') {
     const mockListing = mockListings[0];
-    return { success: true, data: mockListing as T };
+    return { success: true, data: mockListing };
   }
   
   if (path === '/listings/relist' && method === 'POST') {
     const mockListing = mockListings[0];
-    return { success: true, data: mockListing as T };
+    return { success: true, data: mockListing };
   }
 
   throw new Error(`Listing route not implemented: ${path}`);
 };
 
 // Challenge route handlers
-const handleChallengeRoutes = <T>(
+const handleChallengeRoutes = (
   path: string, 
   method: string, 
   params: URLSearchParams,
   options: RequestInit
-): ApiResponse<T> => {
+): ApiResponse<any> => {
   if (path === '/challenges') {
-    return createPaginatedResponse(mockChallenges, params);
+    return createPaginatedResponse(mockChallenges, params) as any;
   }
   
   if (path.match(/^\/challenges\/([a-zA-Z0-9-]+)\/join$/) && method === 'POST') {
-    return { success: true, data: true as T };
+    return { success: true, data: true };
   }
 
   throw new Error(`Challenge route not implemented: ${path}`);
 };
 
 // Achievement route handlers
-const handleAchievementRoutes = <T>(
+const handleAchievementRoutes = (
   path: string, 
   method: string, 
   params: URLSearchParams,
   options: RequestInit
-): ApiResponse<T> => {
+): ApiResponse<any> => {
   if (path === '/achievements') {
-    return createPaginatedResponse(mockAchievements, params);
+    return createPaginatedResponse(mockAchievements, params) as any;
   }
 
   throw new Error(`Achievement route not implemented: ${path}`);

@@ -128,16 +128,28 @@ class ApiClient {
   }
 
   async getBidHistory(auctionId: string): Promise<PaginatedResponse<Bid>> {
-    return this.request<Bid[]>(`/auctions/${auctionId}/bids`);
+    const response = await this.request<Bid[]>(`/auctions/${auctionId}/bids`);
+    return {
+      ...response,
+      meta: response.meta || { page: 1, limit: 20, total: 0, hasMore: false }
+    } as PaginatedResponse<Bid>;
   }
 
   async getUserBids(userId: string): Promise<PaginatedResponse<Bid>> {
-    return this.request<Bid[]>(`/users/${userId}/bids`);
+    const response = await this.request<Bid[]>(`/users/${userId}/bids`);
+    return {
+      ...response,
+      meta: response.meta || { page: 1, limit: 20, total: 0, hasMore: false }
+    } as PaginatedResponse<Bid>;
   }
 
   // Chat API
   async getChatMessages(roomId: string, limit = 50): Promise<PaginatedResponse<ChatMessage>> {
-    return this.request<ChatMessage[]>(`/chat/${roomId}/messages?limit=${limit}`);
+    const response = await this.request<ChatMessage[]>(`/chat/${roomId}/messages?limit=${limit}`);
+    return {
+      ...response,
+      meta: response.meta || { page: 1, limit: 20, total: 0, hasMore: false }
+    } as PaginatedResponse<ChatMessage>;
   }
 
   async sendChatMessage(roomId: string, message: string): Promise<ApiResponse<ChatMessage>> {
@@ -177,24 +189,44 @@ class ApiClient {
   }
 
   async getFollowers(userId: string): Promise<PaginatedResponse<User>> {
-    return this.request<User[]>(`/users/${userId}/followers`);
+    const response = await this.request<User[]>(`/users/${userId}/followers`);
+    return {
+      ...response,
+      meta: response.meta || { page: 1, limit: 20, total: 0, hasMore: false }
+    } as PaginatedResponse<User>;
   }
 
   async getFollowing(userId: string): Promise<PaginatedResponse<User>> {
-    return this.request<User[]>(`/users/${userId}/following`);
+    const response = await this.request<User[]>(`/users/${userId}/following`);
+    return {
+      ...response,
+      meta: response.meta || { page: 1, limit: 20, total: 0, hasMore: false }
+    } as PaginatedResponse<User>;
   }
 
   async getActivityFeed(page = 1, limit = 20): Promise<PaginatedResponse<ActivityFeedItem>> {
-    return this.request<ActivityFeedItem[]>(`/feed?page=${page}&limit=${limit}`);
+    const response = await this.request<ActivityFeedItem[]>(`/feed?page=${page}&limit=${limit}`);
+    return {
+      ...response,
+      meta: response.meta || { page: 1, limit: 20, total: 0, hasMore: false }
+    } as PaginatedResponse<ActivityFeedItem>;
   }
 
   // Achievements API
   async getUserAchievements(userId: string): Promise<PaginatedResponse<Achievement>> {
-    return this.request<Achievement[]>(`/users/${userId}/achievements`);
+    const response = await this.request<Achievement[]>(`/users/${userId}/achievements`);
+    return {
+      ...response,
+      meta: response.meta || { page: 1, limit: 20, total: 0, hasMore: false }
+    } as PaginatedResponse<Achievement>;
   }
 
   async getAllAchievements(): Promise<PaginatedResponse<Achievement>> {
-    return this.request<Achievement[]>('/achievements');
+    const response = await this.request<Achievement[]>('/achievements');
+    return {
+      ...response,
+      meta: response.meta || { page: 1, limit: 20, total: 0, hasMore: false }
+    } as PaginatedResponse<Achievement>;
   }
 
   // Leaderboards API
@@ -203,9 +235,13 @@ class ApiClient {
     period: string, 
     limit = 100
   ): Promise<PaginatedResponse<LeaderboardEntry>> {
-    return this.request<LeaderboardEntry[]>(
+    const response = await this.request<LeaderboardEntry[]>(
       `/leaderboards/${category}?period=${period}&limit=${limit}`
     );
+    return {
+      ...response,
+      meta: response.meta || { page: 1, limit: 100, total: 0, hasMore: false }
+    } as PaginatedResponse<LeaderboardEntry>;
   }
 
   // Marketplace API
@@ -218,7 +254,11 @@ class ApiClient {
         }
       });
     }
-    return this.request<Listing[]>(`/listings?${params}`);
+    const response = await this.request<Listing[]>(`/listings?${params}`);
+    return {
+      ...response,
+      meta: response.meta || { page: 1, limit: 20, total: 0, hasMore: false }
+    } as PaginatedResponse<Listing>;
   }
 
   async createListing(listing: Partial<Listing>): Promise<ApiResponse<Listing>> {
@@ -237,7 +277,11 @@ class ApiClient {
 
   // Challenges API
   async getChallenges(): Promise<PaginatedResponse<Challenge>> {
-    return this.request<Challenge[]>('/challenges');
+    const response = await this.request<Challenge[]>('/challenges');
+    return {
+      ...response,
+      meta: response.meta || { page: 1, limit: 20, total: 0, hasMore: false }
+    } as PaginatedResponse<Challenge>;
   }
 
   async joinChallenge(challengeId: string): Promise<ApiResponse<boolean>> {
