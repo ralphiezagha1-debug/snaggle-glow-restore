@@ -26,25 +26,25 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-card-border bg-card/80 backdrop-blur-md">
+    <nav className="sticky top-0 z-50 w-full border-b border-white/5 bg-black/40 backdrop-blur-md">
       <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-14 items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <Gavel className="h-6 w-6 text-snaggle-green" />
-            <span className="font-bold text-xl text-snaggle-green logo-glow">Snaggle</span>
+            <Gavel className="h-6 w-6 text-[#00FF85] logo-glow" />
+            <span className="font-bold text-lg text-[#00FF85] logo-glow">Snaggle</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6 ml-6">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 to={link.href}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
+                className={`text-sm transition-colors ${
                   isActive(link.href) 
-                    ? "text-primary" 
-                    : "text-muted-foreground"
+                    ? "text-white" 
+                    : "text-white/70 hover:text-white"
                 }`}
               >
                 {link.label}
@@ -53,21 +53,24 @@ const Navbar = () => {
           </div>
 
           {/* Search Bar & Actions */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 ml-auto">
             {/* Search Bar */}
             <div className="hidden lg:flex relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/50" />
               <Input
                 placeholder="Search auctions..."
-                className="pl-10 w-64"
+                className="pl-10 w-64 bg-white/5 border-white/10 text-white placeholder:text-white/50"
               />
             </div>
 
             {/* Account Actions */}
-            <Button variant="ghost" asChild>
+            <Button variant="ghost" asChild className="text-white/70 hover:text-white hover:bg-white/10">
               <Link to="/signin">Sign In</Link>
             </Button>
-            <Button variant="primary-action" asChild>
+            <Button 
+              asChild 
+              className="bg-gradient-to-r from-[#00FF85] to-[#FFD700] text-black font-semibold hover:shadow-[0_0_20px_rgba(0,255,133,0.25)] transition-shadow rounded-lg px-4 py-2"
+            >
               <Link to="/signup">Get Started</Link>
             </Button>
           </div>
@@ -124,7 +127,10 @@ const Navbar = () => {
                       Sign In
                     </Link>
                   </Button>
-                  <Button variant="primary-action" asChild>
+                  <Button 
+                    asChild
+                    className="bg-gradient-to-r from-[#00FF85] to-[#FFD700] text-black font-semibold hover:shadow-[0_0_20px_rgba(0,255,133,0.25)] transition-shadow"
+                  >
                     <Link to="/signup" onClick={() => setIsOpen(false)}>
                       Get Started
                     </Link>

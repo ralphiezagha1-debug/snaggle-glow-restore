@@ -62,27 +62,53 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-hero py-24 lg:py-32">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
-              <span className="text-snaggle-green logo-glow">Snag Deals in Live Auctions</span>
-            </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-              The premium live auction platform where collectors, enthusiasts, and investors 
-              compete for the world's most coveted items.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild variant="primary-action" size="lg" className="text-lg px-8 py-6">
-                <Link to="/auctions">
-                  Shop Now
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-              <Button asChild variant="secondary" size="lg" className="text-lg px-8 py-6">
-                <Link to="/how-it-works">Learn How It Works</Link>
-              </Button>
-            </div>
+      <section className="container mx-auto px-6 pt-12 pb-10">
+        <div className="mx-auto max-w-6xl">
+          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-4 text-[#00FF85] hero-glow">
+            Snag Deals in Live Auctions
+          </h1>
+          <p className="text-white/70 mb-8 max-w-3xl">
+            The premium live auction platform where collectors, enthusiasts, and investors 
+            compete for exclusive items in real-time. Authenticity guaranteed, every bid counts.
+          </p>
+          <div className="flex flex-wrap gap-4 mb-5">
+            <Button 
+              size="lg" 
+              asChild
+              className="bg-[#00FF85] text-black font-semibold hover:bg-[#00e676] ring-1 ring-[rgba(0,255,133,0.35)] hover:shadow-[0_8px_24px_rgba(0,255,133,0.25)] transition-all"
+            >
+              <Link to="/auctions">Shop Now</Link>
+            </Button>
+            <Button 
+              size="lg" 
+              variant="outline" 
+              asChild
+              className="bg-white/8 text-white hover:bg-white/12 border-white/10"
+            >
+              <Link to="/how-it-works">Learn How It Works</Link>
+            </Button>
+          </div>
+          {/* Trust row */}
+          <div className="flex flex-wrap items-center gap-4 text-xs text-white/60">
+            <span className="inline-flex items-center gap-1">
+              <svg className="h-3.5 w-3.5 text-[#3BAFDA]" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              </svg>
+              Verified sellers
+            </span>
+            <span className="inline-flex items-center gap-1">
+              <svg className="h-3.5 w-3.5 text-[#3BAFDA]" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              </svg>
+              Buyer protection
+            </span>
+            <span className="inline-flex items-center gap-1">
+              <svg className="h-3.5 w-3.5 text-[#3BAFDA]" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+                <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z" />
+              </svg>
+              Free shipping on wins
+            </span>
           </div>
         </div>
       </section>
@@ -191,26 +217,30 @@ const Home = () => {
       {/* CTA Section */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <Card className="bg-gradient-hero border-primary/20 text-center p-12">
+          <Card className="bg-white/[0.03] border-white/5 text-center p-12">
             <CardHeader>
               <div className="flex justify-center mb-6">
-                <Trophy className="h-16 w-16 text-primary" />
+                <Trophy className="h-16 w-16 text-[#00FF85]" />
               </div>
-              <CardTitle className="text-3xl md:text-4xl font-bold mb-4">
+              <CardTitle className="text-3xl md:text-4xl font-bold mb-4 text-white">
                 Ready to Start Winning?
               </CardTitle>
-              <CardDescription className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <CardDescription className="text-lg text-white/70 max-w-2xl mx-auto">
                 Join thousands of successful bidders who trust Snaggle for their most important purchases.
               </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-              <Button asChild variant="primary-action" size="lg" className="text-lg px-8">
+              <Button 
+                asChild 
+                size="lg" 
+                className="text-lg px-8 bg-[#00FF85] text-black font-semibold hover:bg-[#00e676] ring-1 ring-[rgba(0,255,133,0.35)] hover:shadow-[0_8px_24px_rgba(0,255,133,0.25)] transition-all"
+              >
                 <Link to="/signup">
                   Create Your Account
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="text-lg px-8">
+              <Button asChild variant="outline" size="lg" className="text-lg px-8 border-white/20 text-white/90 hover:bg-white/10">
                 <Link to="/waitlist">Join Our Waitlist</Link>
               </Button>
             </CardContent>

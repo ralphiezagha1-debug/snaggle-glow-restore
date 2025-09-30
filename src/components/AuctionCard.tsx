@@ -55,9 +55,8 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
 
   return (
     <Card className={cn(
-      "group overflow-hidden transition-all duration-300",
-      "hover:shadow-card hover:-translate-y-1",
-      isFeatured && "ring-2 ring-snaggle-gold snaggle-glow-sm",
+      "group overflow-hidden transition-all duration-300 bg-white/[0.03] border-white/5 hover:border-white/10",
+      isFeatured && "ring-2 ring-[#FFD700]",
       isEnding && "ring-2 ring-destructive",
       isSoldOut && "opacity-60",
       className
@@ -66,7 +65,7 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
         <img
           src={auction.imageUrl}
           alt={auction.title}
-          className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+          className="w-full h-48 object-cover rounded-t-lg"
         />
         
         {/* Badges */}
@@ -76,7 +75,7 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
             Verified
           </Badge>
           {isFeatured && (
-            <Badge className="bg-snaggle-gold text-black font-semibold">
+            <Badge className="bg-[#FFD700] text-black font-semibold">
               Featured
             </Badge>
           )}
@@ -96,7 +95,7 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
         <Button
           variant="ghost"
           size="icon"
-          className="absolute top-3 right-3 bg-background/80 backdrop-blur-sm hover:bg-background"
+          className="absolute top-3 right-3 bg-black/60 backdrop-blur-sm hover:bg-black/80 text-white"
         >
           <Heart className="h-4 w-4" />
           <span className="sr-only">Add to favorites</span>
@@ -105,24 +104,24 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
 
       <CardContent className="p-4 space-y-3">
         <div>
-          <Badge variant="outline" className="mb-2">
+          <Badge variant="outline" className="mb-2 border-white/20 text-white/70">
             {auction.category}
           </Badge>
           <Link to={`/auctions/${auction.id}`}>
-            <h3 className="font-semibold text-lg hover:text-primary transition-colors line-clamp-1">
+            <h3 className="font-semibold text-lg text-white/90 hover:text-[#00FF85] transition-colors line-clamp-1">
               {auction.title}
             </h3>
           </Link>
-          <p className="text-muted-foreground text-sm line-clamp-2 mt-1">
+          <p className="text-white/50 text-sm line-clamp-2 mt-1">
             {auction.description}
           </p>
         </div>
 
         <div className="space-y-3">
           {/* Trust Labels */}
-          <div className="flex flex-wrap gap-2 text-xs text-muted-foreground">
+          <div className="flex flex-wrap gap-2 text-xs text-white/50">
             <span className="flex items-center gap-1">
-              <Shield className="h-3 w-3 text-[hsl(196,73%,53%)]" />
+              <Shield className="h-3 w-3 text-[#3BAFDA]" />
               Free shipping included
             </span>
             <span>• Authenticity guaranteed</span>
@@ -130,15 +129,15 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
           
           <div className="flex justify-between items-center">
             <div>
-              <p className="text-sm text-muted-foreground">Current bid</p>
-              <p className="text-2xl font-bold text-snaggle-green">
+              <p className="text-sm text-white/50">Current bid</p>
+              <p className="text-2xl font-bold text-[#00FF85]">
                 ${auction.currentBid.toLocaleString()}
               </p>
             </div>
             {auction.buyNowPrice && (
               <div className="text-right">
-                <p className="text-sm text-muted-foreground">Buy now</p>
-                <p className="text-lg font-semibold">
+                <p className="text-sm text-white/50">Buy now</p>
+                <p className="text-lg font-semibold text-white/90">
                   ${auction.buyNowPrice.toLocaleString()}
                 </p>
               </div>
@@ -147,26 +146,30 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
 
           <div className="flex items-center justify-between text-sm">
             <div className={cn(
-              "flex items-center gap-1 px-2 py-1 rounded gold-glow",
-              isUrgent && "timer-pulse"
+              "inline-flex items-center rounded-md px-2 py-1 text-xs bg-white/6 text-white/70 transition-all",
+              isUrgent && "bg-[#FFD700]/15 text-[#FFD700] ring-1 ring-[#FFD700]/30 timer-pulse"
             )}>
-              <Clock className="h-4 w-4 text-snaggle-gold" />
-              <span className="font-medium text-snaggle-gold">{timeRemaining}</span>
+              <Clock className={cn("h-4 w-4 mr-1", isUrgent ? "text-[#FFD700]" : "text-white/70")} />
+              <span className="font-medium">{timeRemaining}</span>
             </div>
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 text-white/50">
               <Users className="h-4 w-4" />
               <span>{auction.bidCount} bids</span>
             </div>
           </div>
 
           <div className="flex gap-2">
-            <Button asChild variant="primary-action" className="flex-1" disabled={isSoldOut}>
+            <Button 
+              asChild 
+              className="flex-1 bg-[#00FF85] text-black font-semibold hover:bg-[#00e676] transition-colors" 
+              disabled={isSoldOut}
+            >
               <Link to={`/auctions/${auction.id}`}>
                 {isSoldOut ? 'View Details' : 'Bid Now'}
               </Link>
             </Button>
             {auction.buyNowPrice && !isSoldOut && (
-              <Button variant="outline" asChild>
+              <Button variant="outline" asChild className="border-white/20 text-white/90 hover:bg-white/10">
                 <Link to={`/auctions/${auction.id}?action=buy-now`}>
                   Buy Now
                 </Link>

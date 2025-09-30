@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Snaggle Design System - Purple/Gold/Green Theme */
+/* Snaggle Design System - Dark Premium Base */
 
 @layer base {
   :root {
@@ -10,28 +10,23 @@
     --background: 0 0% 98%;
     --foreground: 0 0% 5%;
     
-    /* Snaggle Brand Colors - Balanced Trust + Vibrance */
-    --snaggle-purple: 270 95% 75%;
-    --snaggle-purple-dark: 270 95% 65%;
-    --snaggle-purple-light: 270 95% 85%;
-    --snaggle-gold: 45 100% 51%; /* #FFD700 */
-    --snaggle-gold-dark: 45 100% 45%;
-    --snaggle-gold-light: 45 100% 60%;
+    /* Snaggle Brand Colors */
+    --snaggle-bg: 0 0% 5.5%; /* #0E0E0E */
+    --snaggle-bg2: 0 0% 10%; /* #1A1A1A */
     --snaggle-green: 158 100% 50%; /* #00FF85 Neon Green */
-    --snaggle-green-dark: 158 100% 40%;
-    --snaggle-green-light: 158 100% 60%;
-    --snaggle-green-foreground: 0 0% 0%; /* Black text on green */
-    --trust-blue: 196 73% 53%; /* #3BAFDA */
+    --snaggle-gold: 45 100% 51%; /* #FFD700 */
+    --snaggle-gray: 0 0% 91%; /* #E8E8E8 */
+    --snaggle-sky: 196 73% 53%; /* #3BAFDA Trust Blue */
     
     /* Card System */
     --card: 0 0% 100%;
     --card-foreground: 0 0% 5%;
     --card-border: 0 0% 88%;
     
-    /* Primary Actions (Snaggle Purple) */
-    --primary: 270 95% 75%;
-    --primary-foreground: 0 0% 100%;
-    --primary-hover: 270 95% 65%;
+    /* Primary Actions */
+    --primary: 158 100% 50%;
+    --primary-foreground: 0 0% 0%;
+    --primary-hover: 158 100% 45%;
     
     /* Secondary Actions */
     --secondary: 0 0% 88%;
@@ -43,8 +38,8 @@
     --muted-foreground: 0 0% 40%;
     
     /* Accent (Gold) */
-    --accent: 45 100% 60%;
-    --accent-foreground: 0 0% 5%;
+    --accent: 45 100% 51%;
+    --accent-foreground: 0 0% 0%;
     
     /* Destructive */
     --destructive: 0 84% 60%;
@@ -54,24 +49,20 @@
     --border: 0 0% 88%;
     --input: 0 0% 96%;
     --input-border: 0 0% 85%;
-    --ring: 270 95% 75%;
+    --ring: 158 100% 50%;
     
-    /* Gradients - Balanced Trust + Vibrance */
-    --gradient-radial: radial-gradient(circle at 50% 50%, hsl(270 95% 75% / 0.03) 0%, hsl(0 0% 98%) 50%);
-    --gradient-hero: radial-gradient(ellipse at center, hsl(270 95% 75% / 0.05) 0%, hsl(0 0% 98%) 70%);
+    /* Gradients */
+    --gradient-radial: radial-gradient(circle at 50% 50%, hsl(0 0% 98%) 0%, hsl(0 0% 98%) 100%);
+    --gradient-hero: radial-gradient(ellipse at center, hsl(0 0% 98%) 0%, hsl(0 0% 98%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(0 0% 98%));
     --gradient-primary-action: linear-gradient(135deg, hsl(158 100% 50%), hsl(45 100% 51%));
     
-    /* Shadows & Glows */
-    --shadow-glow-sm: 0 0 20px hsl(270 95% 75% / 0.1);
-    --shadow-glow-md: 0 0 40px hsl(270 95% 75% / 0.15);
-    --shadow-glow-lg: 0 0 60px hsl(270 95% 75% / 0.2);
-    --shadow-card: 0 8px 32px hsl(0 0% 0% / 0.1);
-    --shadow-button: 0 0 20px hsl(270 95% 75% / 0.15);
-    --shadow-green-glow: 0 0 20px hsl(158 100% 50% / 0.3);
-    --shadow-green-glow-hover: 0 0 30px hsl(158 100% 50% / 0.5);
-    --shadow-gold-glow: 0 0 15px hsl(45 100% 51% / 0.3);
-    --shadow-logo-glow: 0 0 25px hsl(158 100% 50% / 0.4);
+    /* Tight Drop Shadows - No Fog */
+    --shadow-logo: drop-shadow(0 0 6px rgba(0, 255, 133, 0.35));
+    --shadow-hero: drop-shadow(0 0 10px rgba(0, 255, 133, 0.25));
+    --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.15);
+    --shadow-button-hover: 0 8px 24px rgba(0, 255, 133, 0.25);
+    --shadow-cta-hover: 0 0 20px rgba(0, 255, 133, 0.25);
     
     --radius: 0.75rem;
 
@@ -90,26 +81,25 @@
   }
 
   body {
-    @apply bg-background text-foreground;
-    background: var(--gradient-radial);
+    @apply bg-[#0E0E0E] text-[#E8E8E8];
+    background: radial-gradient(1200px 600px at 20% 0%, rgba(125, 60, 255, 0.12), transparent);
     background-attachment: fixed;
     min-height: 100vh;
   }
   
-  /* Dark theme overrides - Balanced Trust + Vibrance */
+  /* Dark theme overrides */
   .dark {
-    --background: 0 0% 5.5%; /* Dark charcoal #0E0E0E */
-    --foreground: 0 0% 98%;
-    --card: 0 0% 9%; /* Neutral dark surface */
-    --card-foreground: 0 0% 95%;
-    --card-border: 0 0% 12%;
-    --muted: 0 0% 8%;
-    --muted-foreground: 0 0% 60%;
-    --border: 0 0% 12%;
+    --background: 0 0% 5.5%; /* #0E0E0E */
+    --foreground: 0 0% 91%; /* #E8E8E8 */
+    --card: 0 0% 3%; /* Neutral dark surface with subtle transparency */
+    --card-foreground: 0 0% 90%;
+    --card-border: 0 0% 5%;
+    --muted: 0 0% 6%;
+    --muted-foreground: 0 0% 50%;
+    --border: 0 0% 5%;
     --input: 0 0% 8%;
-    --gradient-radial: radial-gradient(circle at 50% 50%, hsl(270 100% 12% / 0.3) 0%, hsl(0 0% 5.5%) 50%);
-    --gradient-hero: radial-gradient(ellipse at center, hsl(270 100% 12% / 0.4) 0%, hsl(0 0% 5.5%) 70%);
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 9%), hsl(0 0% 7%));
+    --gradient-radial: radial-gradient(1200px 600px at 20% 0%, rgba(125, 60, 255, 0.12), transparent);
+    --gradient-card: linear-gradient(145deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
   }
   
   /* Scrollbar styling for dark theme */
@@ -132,61 +122,31 @@
 }
 
 @layer components {
-  /* Glow utilities */
-  .snaggle-glow-sm {
-    box-shadow: var(--shadow-glow-sm);
-  }
-  
-  .snaggle-glow-md {
-    box-shadow: var(--shadow-glow-md);
-  }
-  
-  .snaggle-glow-lg {
-    box-shadow: var(--shadow-glow-lg);
-  }
-  
+  /* Tight drop-shadow utilities - no fog */
   .logo-glow {
-    text-shadow: var(--shadow-logo-glow);
+    filter: drop-shadow(0 0 6px rgba(0, 255, 133, 0.35));
   }
   
-  .green-glow {
-    box-shadow: var(--shadow-green-glow);
-  }
-  
-  .green-glow-hover:hover {
-    box-shadow: var(--shadow-green-glow-hover);
-  }
-  
-  .gold-glow {
-    box-shadow: var(--shadow-gold-glow);
+  .hero-glow {
+    filter: drop-shadow(0 0 10px rgba(0, 255, 133, 0.25));
   }
   
   /* Gradient backgrounds */
-  .bg-gradient-radial {
-    background: var(--gradient-radial);
-  }
-  
-  .bg-gradient-hero {
-    background: var(--gradient-hero);
-  }
-  
   .bg-gradient-card {
-    background: var(--gradient-card);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
   }
   
   .bg-gradient-primary-action {
-    background: var(--gradient-primary-action);
+    background: linear-gradient(135deg, hsl(158 100% 50%), hsl(45 100% 51%));
   }
   
-  /* Pulse animation for timer <1min */
+  /* Soft pulse animation for timer <60s only */
   @keyframes timer-pulse {
     0%, 100% {
       opacity: 1;
-      box-shadow: var(--shadow-gold-glow);
     }
     50% {
       opacity: 0.8;
-      box-shadow: 0 0 25px hsl(45 100% 51% / 0.5);
     }
   }
   
