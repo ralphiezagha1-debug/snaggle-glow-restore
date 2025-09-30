@@ -31,8 +31,8 @@ const Navbar = () => {
         <div className="flex h-14 items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <Gavel className="h-6 w-6 text-[#00FF85] logo-glow" />
-            <span className="font-bold text-lg text-[#00FF85] logo-glow">Snaggle</span>
+            <Gavel className="h-6 w-6 text-[#00FF80]" />
+            <span className="font-bold text-lg text-[#00FF80] logo-glow">Snaggle</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -69,7 +69,7 @@ const Navbar = () => {
             </Button>
             <Button 
               asChild 
-              className="bg-[hsl(210,100%,50%)] text-white font-semibold hover:bg-[hsl(210,100%,55%)] hover:shadow-[0_0_16px_rgba(0,255,133,0.5)] transition-all"
+              className="glass-effect bg-[#007BFF] text-white font-semibold hover:shadow-[0_0_20px_rgba(0,255,128,0.6)] transition-all"
             >
               <Link to="/signup">Get Started</Link>
             </Button>
@@ -129,7 +129,7 @@ const Navbar = () => {
                   </Button>
                   <Button 
                     asChild
-                    className="bg-[hsl(210,100%,50%)] text-white font-semibold hover:bg-[hsl(210,100%,55%)] hover:shadow-[0_0_16px_rgba(0,255,133,0.5)] transition-all"
+                    className="glass-effect bg-[#007BFF] text-white font-semibold hover:shadow-[0_0_20px_rgba(0,255,128,0.6)] transition-all"
                   >
                     <Link to="/signup" onClick={() => setIsOpen(false)}>
                       Get Started

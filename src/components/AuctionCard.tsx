@@ -55,7 +55,7 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
 
   return (
     <Card className={cn(
-      "group overflow-hidden transition-all duration-300 bg-white/[0.03] border-white/5 hover:border-white/10",
+      "group overflow-hidden transition-all duration-300 bg-white/[0.04] border-white/10 card-hover-glow",
       isFeatured && "ring-2 ring-[#FFD700]",
       isEnding && "ring-2 ring-destructive",
       isSoldOut && "opacity-60",
@@ -104,24 +104,24 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
 
       <CardContent className="p-4 space-y-3">
         <div>
-          <Badge variant="outline" className="mb-2 border-white/20 text-white/70">
+          <Badge variant="outline" className="mb-2 border-white/20 text-white/80">
             {auction.category}
           </Badge>
           <Link to={`/auctions/${auction.id}`}>
-            <h3 className="font-semibold text-lg text-white/90 hover:text-[#00FF85] transition-colors line-clamp-1">
+            <h3 className="font-semibold text-lg text-white hover:text-[#00FF80] transition-colors line-clamp-1">
               {auction.title}
             </h3>
           </Link>
-          <p className="text-white/50 text-sm line-clamp-2 mt-1">
+          <p className="text-white/60 text-sm line-clamp-2 mt-1">
             {auction.description}
           </p>
         </div>
 
         <div className="space-y-3">
           {/* Trust Labels */}
-          <div className="flex flex-wrap gap-2 text-xs text-white">
+          <div className="flex flex-wrap gap-2 text-xs font-medium text-white">
             <span className="flex items-center gap-1.5">
-              <Shield className="h-3.5 w-3.5 text-[#3DD7FF]" />
+              <Shield className="h-3.5 w-3.5 text-[#5DBAFF]" />
               Free shipping included
             </span>
             <span>• Authenticity guaranteed</span>
@@ -129,8 +129,8 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
           
           <div className="flex justify-between items-center">
             <div>
-              <p className="text-sm text-white/50">Current bid</p>
-              <p className="text-2xl font-bold text-[#00FF85]">
+              <p className="text-sm text-white/60">Current bid</p>
+              <p className="text-2xl font-bold text-[#00FF80]">
                 ${auction.currentBid.toLocaleString()}
               </p>
             </div>
@@ -161,7 +161,7 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
           <div className="flex gap-2">
             <Button 
               asChild 
-              className="flex-1 bg-[hsl(210,100%,50%)] text-white font-semibold hover:bg-[hsl(210,100%,55%)] hover:shadow-[0_0_16px_rgba(0,255,133,0.5)] transition-all" 
+              className="flex-1 glass-effect bg-[#007BFF] text-white font-semibold hover:shadow-[0_0_20px_rgba(0,255,128,0.6)] transition-all" 
               disabled={isSoldOut}
             >
               <Link to={`/auctions/${auction.id}`}>
@@ -169,7 +169,7 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
               </Link>
             </Button>
             {auction.buyNowPrice && !isSoldOut && (
-              <Button variant="outline" asChild className="border-white/20 text-white/90 hover:bg-white/10">
+              <Button variant="outline" asChild className="border-white/20 text-white hover:bg-white/10 backdrop-blur-sm">
                 <Link to={`/auctions/${auction.id}?action=buy-now`}>
                   Buy Now
                 </Link>

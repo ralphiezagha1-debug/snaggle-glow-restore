@@ -64,18 +64,18 @@ const Home = () => {
       {/* Hero Section */}
       <section className="container mx-auto px-6 pt-12 pb-10">
         <div className="mx-auto max-w-6xl">
-          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-4 text-[#00FF85] hero-glow">
+          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-4 text-[#00FF80] hero-glow">
             Snag Deals in Live Auctions
           </h1>
-          <p className="text-white mb-8 max-w-3xl text-lg">
+          <p className="text-white mb-8 max-w-3xl text-lg font-medium">
             The premium live auction platform where collectors, enthusiasts, and investors 
             compete for exclusive items in real-time. Authenticity guaranteed, every bid counts.
           </p>
-          <div className="flex flex-wrap gap-4 mb-6">
+          <div className="flex flex-wrap gap-4 mb-8">
             <Button 
               size="lg" 
               asChild
-              className="bg-[hsl(210,100%,50%)] text-white font-semibold hover:bg-[hsl(210,100%,55%)] hover:shadow-[0_0_16px_rgba(0,255,133,0.5)] transition-all"
+              className="glass-effect bg-[#007BFF] text-white font-bold hover:shadow-[0_0_20px_rgba(0,255,128,0.6)] transition-all cta-pulse"
             >
               <Link to="/auctions">Shop Now</Link>
             </Button>
@@ -83,44 +83,49 @@ const Home = () => {
               size="lg" 
               variant="outline" 
               asChild
-              className="bg-white/5 text-white hover:bg-white/10 border-white/20"
+              className="bg-white/5 text-white hover:bg-white/10 border-white/20 backdrop-blur-sm"
             >
               <Link to="/how-it-works">Learn How It Works</Link>
             </Button>
           </div>
           {/* Trust row */}
-          <div className="flex flex-wrap items-center gap-4 text-sm text-white">
+          <div className="flex flex-wrap items-center gap-6 text-base">
             <span className="inline-flex items-center gap-2">
-              <svg className="h-4 w-4 text-[#3DD7FF]" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="h-5 w-5 text-[#5DBAFF]" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
-              Verified sellers
+              <span className="font-semibold text-white">Verified sellers</span>
             </span>
             <span className="inline-flex items-center gap-2">
-              <svg className="h-4 w-4 text-[#3DD7FF]" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="h-5 w-5 text-[#5DBAFF]" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
-              Buyer protection
+              <span className="font-semibold text-white">Buyer protection</span>
             </span>
             <span className="inline-flex items-center gap-2">
-              <svg className="h-4 w-4 text-[#3DD7FF]" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="h-5 w-5 text-[#5DBAFF]" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
                 <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z" />
               </svg>
-              Free shipping on wins
+              <span className="font-semibold text-white">Free shipping on wins</span>
             </span>
           </div>
         </div>
       </section>
 
+      {/* Neon Green Divider */}
+      <div className="container mx-auto px-6">
+        <div className="neon-divider"></div>
+      </div>
+
       {/* Featured Auctions */}
-      <section className="py-20">
+      <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
               Featured Auctions
             </h2>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-xl text-white/80">
               Discover exceptional items ending soon
             </p>
           </div>
@@ -233,14 +238,14 @@ const Home = () => {
               <Button 
                 asChild 
                 size="lg" 
-                className="text-lg px-8 bg-[hsl(210,100%,50%)] text-white font-semibold hover:bg-[hsl(210,100%,55%)] hover:shadow-[0_0_16px_rgba(0,255,133,0.5)] transition-all"
+                className="text-lg px-8 glass-effect bg-[#007BFF] text-white font-bold hover:shadow-[0_0_20px_rgba(0,255,128,0.6)] transition-all cta-pulse"
               >
                 <Link to="/signup">
                   Create Your Account
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="text-lg px-8 border-white/20 text-white/90 hover:bg-white/10">
+              <Button asChild variant="outline" size="lg" className="text-lg px-8 border-white/20 text-white hover:bg-white/10 backdrop-blur-sm">
                 <Link to="/waitlist">Join Our Waitlist</Link>
               </Button>
             </CardContent>
