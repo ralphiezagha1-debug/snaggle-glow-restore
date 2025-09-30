@@ -75,7 +75,7 @@
 
   body {
     @apply text-white;
-    background: linear-gradient(135deg, #121212 0%, #0A0F24 50%, #1B1036 100%);
+    background: linear-gradient(180deg, #0D0D0D 0%, #0A0F24 50%, #1B1036 100%);
     background-attachment: fixed;
     min-height: 100vh;
   }

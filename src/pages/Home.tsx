@@ -176,7 +176,7 @@ const Home = () => {
           </div>
           
           <div className="text-center">
-            <Button asChild variant="outline" size="lg">
+            <Button asChild size="lg" className="glass-effect bg-[#007BFF] text-white font-bold hover:shadow-[0_0_20px_rgba(0,255,128,0.6)] transition-all px-8">
               <Link to="/auctions">
                 View All Auctions
                 <ArrowRight className="ml-2 h-4 w-4" />
