@@ -74,8 +74,8 @@ const Home = () => {
           <div className="flex flex-wrap gap-4 mb-8">
             <Button 
               size="lg" 
+              variant="primary"
               asChild
-              className="glass-effect bg-[#007BFF] text-white font-bold hover:shadow-[0_0_20px_rgba(0,255,128,0.6)] transition-all cta-pulse"
             >
               <Link to="/auctions">Shop Now</Link>
             </Button>
@@ -175,7 +175,7 @@ const Home = () => {
           </div>
           
           <div className="text-center">
-            <Button asChild size="lg" className="glass-effect bg-[#007BFF] text-white font-bold hover:shadow-[0_0_20px_rgba(0,255,128,0.6)] transition-all px-8">
+            <Button asChild size="lg" variant="primary" className="px-8">
               <Link to="/auctions">
                 View All Auctions
                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -238,7 +238,8 @@ const Home = () => {
               <Button 
                 asChild 
                 size="lg" 
-                className="text-lg px-8 glass-effect bg-[#007BFF] text-white font-bold hover:shadow-[0_0_20px_rgba(0,255,128,0.6)] transition-all cta-pulse"
+                variant="primary"
+                className="text-lg px-8"
               >
                 <Link to="/signup">
                   Create Your Account

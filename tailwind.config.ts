@@ -46,6 +46,15 @@ export default {
           foreground: "hsl(var(--card-foreground))",
           border: "hsl(var(--card-border))",
         },
+        snag: {
+          neon: "#00FF80",
+          neonStrong: "#00C46A",
+          blue: "#007BFF",
+          gold: "#E7B10A",
+          charcoal: "#0D0D0D",
+          navy: "#0A0F24",
+          purple: "#1B1036",
+        },
         snaggle: {
           purple: "hsl(var(--snaggle-purple))",
           "purple-dark": "hsl(var(--snaggle-purple-dark))",
@@ -64,6 +73,8 @@ export default {
         "glow-lg": "var(--shadow-glow-lg)",
         card: "var(--shadow-card)",
         button: "var(--shadow-button)",
+        glow: "0 0 14px rgba(0,255,128,0.35)",
+        glowSoft: "0 0 8px rgba(0,255,128,0.22)",
       },
       backgroundImage: {
         "gradient-radial": "var(--gradient-radial)",
@@ -74,6 +85,7 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        xl2: "1rem",
       },
       keyframes: {
         "accordion-down": {

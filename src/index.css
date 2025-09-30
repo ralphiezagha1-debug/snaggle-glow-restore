@@ -10,6 +10,15 @@
     --background: 0 0% 98%;
     --foreground: 0 0% 5%;
     
+    /* Snag Design System */
+    --snag-charcoal: #0D0D0D;
+    --snag-navy: #0A0F24;
+    --snag-purple: #1B1036;
+    --snag-neon: #00FF80;
+    --snag-blue: #007BFF;
+    --snag-gold: #E7B10A;
+    --snag-neon-strong: #00C46A;
+    
     /* Snaggle Brand Colors */
     --snaggle-green: 158 100% 50%; /* #00FF80 Neon Green */
     --snaggle-blue: 211 100% 50%; /* #007BFF Royal Blue */
@@ -74,8 +83,7 @@
   }
 
   body {
-    @apply text-white;
-    background: linear-gradient(135deg, #0D0D0D 0%, #0A0F24 50%, #1B1036 100%);
+    @apply text-white bg-snag-gradient;
     background-attachment: fixed;
     min-height: 100vh;
   }
@@ -114,6 +122,20 @@
 }
 
 @layer components {
+  /* Snag Design System Classes */
+  .bg-snag-gradient {
+    background: linear-gradient(135deg, var(--snag-charcoal) 0%, var(--snag-navy) 55%, var(--snag-purple) 100%);
+  }
+  
+  .snag-headline {
+    color: var(--snag-neon);
+    text-shadow: 0 0 22px rgba(0,255,128,.35), 0 1px 0 rgba(0,0,0,.6);
+  }
+  
+  .snag-inner {
+    box-shadow: inset 0 -1px 0 rgba(255,255,255,.04);
+  }
+
   /* Embedded glow - inner shadow effect */
   .logo-glow {
     text-shadow: 0 0 12px rgba(0, 255, 128, 0.4), 0 2px 8px rgba(0, 255, 128, 0.3);
