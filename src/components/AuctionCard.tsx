@@ -1,11 +1,13 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Clock, Users, Heart, Shield, Loader2 } from "lucide-react";
+import { Clock, Users, Heart, Shield, Loader2, Store } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
+import QuickBidModal from "@/components/modals/QuickBidModal";
+import { flags } from "@/mocks/sellerStore";
 
 export interface AuctionItem {
   id: string;
@@ -32,6 +34,7 @@ interface AuctionCardProps {
 export const AuctionCard = ({ auction, variant = 'default', className }: AuctionCardProps) => {
   const [isQuickBidding, setIsQuickBidding] = useState(false);
   const [localBid, setLocalBid] = useState(auction.currentBid);
+  const [isQuickBidModalOpen, setIsQuickBidModalOpen] = useState(false);
   
   const getTimeRemaining = (endTime: Date) => {
     const now = new Date();
@@ -67,7 +70,9 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
   // Check if timer is under 60 seconds for urgency styling
   const isUrgent = timeRemaining.includes('s') && !timeRemaining.includes('m') && !timeRemaining.includes('h') && !timeRemaining.includes('d');
 
-  const handleQuickBid = async () => {
+  const handleQuickBid = () => {
+    if (!flags.quickBidUI) return;
+    
     // Mock authentication check
     const isLoggedIn = false; // This would come from auth context
     
@@ -92,32 +97,7 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
       return;
     }
     
-    setIsQuickBidding(true);
-    
-    try {
-      // Optimistic update
-      const newBid = localBid + 0.01; // Increment by $0.01
-      setLocalBid(newBid);
-      
-      // Mock API call
-      await new Promise(resolve => setTimeout(resolve, 800));
-      
-      toast({
-        title: "Bid placed ✓",
-        description: `Your bid of $${newBid.toLocaleString()} has been placed`,
-      });
-      
-    } catch (error) {
-      // Rollback on error
-      setLocalBid(auction.currentBid);
-      toast({
-        title: "Bid failed",
-        description: "Unable to place bid. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsQuickBidding(false);
-    }
+    setIsQuickBidModalOpen(true);
   };
 
   return (
@@ -175,9 +155,17 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
 
       <CardContent className="p-5 space-y-4">
         <div>
-          <Badge variant="outline" className="mb-3 border-white/30 text-white/80 text-xs">
-            {auction.category}
-          </Badge>
+          <div className="flex items-center justify-between mb-3">
+            <Badge variant="outline" className="border-white/30 text-white/80 text-xs">
+              {auction.category}
+            </Badge>
+            <Link 
+              to={`/store/${auction.seller}`}
+              className="text-xs text-white/60 hover:text-[#00FF80] transition-colors"
+            >
+              by {auction.seller}
+            </Link>
+          </div>
           <Link to={`/auctions/${auction.id}`}>
             <h3 className="font-bold text-xl text-white hover:text-[#00FF80] transition-colors line-clamp-2 leading-tight">
               {auction.title}
@@ -214,33 +202,35 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
               
               {/* Quick Bid - Desktop */}
               <div className="hidden sm:flex flex-col items-end gap-2">
-                <button
+                <Button
+                  variant="quick-bid"
                   onClick={handleQuickBid}
                   disabled={isQuickBidding || isSoldOut}
-                  className="quick-bid-btn disabled:opacity-60 disabled:cursor-not-allowed flex items-center gap-1"
+                  className="px-4 py-2"
                   aria-label={`Quick bid on ${auction.title}`}
                 >
                   {isQuickBidding ? (
                     <Loader2 className="h-3 w-3 animate-spin" />
                   ) : null}
                   Quick Bid
-                </button>
+                </Button>
               </div>
             </div>
             
             {/* Quick Bid - Mobile */}
             <div className="sm:hidden mt-3">
-              <button
+              <Button
+                variant="quick-bid"
                 onClick={handleQuickBid}
                 disabled={isQuickBidding || isSoldOut}
-                className="quick-bid-btn w-full disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full"
                 aria-label={`Quick bid on ${auction.title}`}
               >
                 {isQuickBidding ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
                 ) : null}
                 Quick Bid
-              </button>
+              </Button>
             </div>
           </div>
 
@@ -266,14 +256,29 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
               </Link>
             </Button>
             <Button 
+              asChild
               variant="ghost-green"
               className="flex-1 h-11" 
             >
-              Watch
+              <Link to={`/store/${auction.seller}`} className="flex items-center justify-center gap-2">
+                <Store className="h-4 w-4" />
+                Visit Store
+              </Link>
             </Button>
           </div>
         </div>
       </CardContent>
+
+      {/* Quick Bid Modal */}
+      {isQuickBidModalOpen && (
+        <QuickBidModal
+          isOpen={isQuickBidModalOpen}
+          onClose={() => setIsQuickBidModalOpen(false)}
+          lotId={auction.id}
+          lotTitle={auction.title}
+          currentBid={localBid}
+        />
+      )}
     </Card>
   );
 };

@@ -34,6 +34,7 @@ import Live from "./pages/Live";
 import { Feed } from "./pages/Feed";
 import { Leaderboards } from "./pages/Leaderboards";
 import { AuctionRoomPage } from "./pages/AuctionRoom";
+import Store from "./pages/Store";
 
 const queryClient = new QueryClient();
 
@@ -74,6 +75,7 @@ const App = () => (
               <Route path="/leaderboards" element={<Leaderboards />} />
               <Route path="/orders" element={<Orders />} />
               <Route path="/wallet" element={<Wallet />} />
+              <Route path="/store/:username" element={<Store />} />
               <Route path="/500" element={<Error500 />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
