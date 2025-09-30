@@ -65,18 +65,17 @@ const Home = () => {
       <section className="relative overflow-hidden bg-gradient-hero py-24 lg:py-32">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-foreground via-primary to-snaggle-green bg-clip-text text-transparent">
-              Win What You Want.<br />
-              <span className="text-primary">Bid What It's Worth.</span>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
+              <span className="text-snaggle-green logo-glow">Snag Deals in Live Auctions</span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
               The premium live auction platform where collectors, enthusiasts, and investors 
               compete for the world's most coveted items.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="glow-green text-lg px-8 py-6">
+              <Button asChild variant="primary-action" size="lg" className="text-lg px-8 py-6">
                 <Link to="/auctions">
-                  Browse Live Auctions
+                  Shop Now
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
@@ -112,9 +111,9 @@ const Home = () => {
                       Featured
                     </Badge>
                   )}
-                  <div className="absolute top-3 right-3 bg-background/80 backdrop-blur-sm rounded-lg px-2 py-1 flex items-center space-x-1">
-                    <Clock className="h-3 w-3 text-destructive" />
-                    <span className="text-xs font-medium">{auction.endTime}</span>
+                  <div className="absolute top-3 right-3 bg-background/80 backdrop-blur-sm rounded-lg px-2 py-1 flex items-center space-x-1 gold-glow">
+                    <Clock className="h-3 w-3 text-snaggle-gold" />
+                    <span className="text-xs font-medium text-snaggle-gold">{auction.endTime}</span>
                   </div>
                 </div>
                 <CardHeader>
@@ -123,7 +122,7 @@ const Home = () => {
                   </CardTitle>
                   <CardDescription className="flex items-center justify-between">
                     <span>Current Bid</span>
-                    <span className="text-primary font-semibold">
+                    <span className="text-snaggle-green font-bold text-lg">
                       ${auction.currentBid.toLocaleString()}
                     </span>
                   </CardDescription>
@@ -205,7 +204,7 @@ const Home = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-              <Button asChild size="lg" className="glow-green text-lg px-8">
+              <Button asChild variant="primary-action" size="lg" className="text-lg px-8">
                 <Link to="/signup">
                   Create Your Account
                   <ArrowRight className="ml-2 h-5 w-5" />

@@ -31,10 +31,8 @@ const Navbar = () => {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <Gavel className="h-8 w-8 text-primary" />
-            <span className="text-2xl font-bold bg-gradient-to-r from-primary to-snaggle-green-light bg-clip-text text-transparent">
-              Snaggle
-            </span>
+            <Gavel className="h-6 w-6 text-snaggle-green" />
+            <span className="font-bold text-xl text-snaggle-green logo-glow">Snaggle</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -69,7 +67,7 @@ const Navbar = () => {
             <Button variant="ghost" asChild>
               <Link to="/signin">Sign In</Link>
             </Button>
-            <Button asChild className="glow-green-hover">
+            <Button variant="primary-action" asChild>
               <Link to="/signup">Get Started</Link>
             </Button>
           </div>
@@ -126,7 +124,7 @@ const Navbar = () => {
                       Sign In
                     </Link>
                   </Button>
-                  <Button asChild className="glow-green-hover">
+                  <Button variant="primary-action" asChild>
                     <Link to="/signup" onClick={() => setIsOpen(false)}>
                       Get Started
                     </Link>

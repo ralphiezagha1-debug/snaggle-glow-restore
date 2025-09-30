@@ -10,16 +10,18 @@
     --background: 0 0% 98%;
     --foreground: 0 0% 5%;
     
-    /* Snaggle Brand Colors */
+    /* Snaggle Brand Colors - Balanced Trust + Vibrance */
     --snaggle-purple: 270 95% 75%;
     --snaggle-purple-dark: 270 95% 65%;
     --snaggle-purple-light: 270 95% 85%;
-    --snaggle-gold: 45 100% 60%;
-    --snaggle-gold-dark: 45 100% 50%;
-    --snaggle-gold-light: 45 100% 70%;
-    --snaggle-green: 142 86% 55%;
-    --snaggle-green-dark: 142 86% 45%;
-    --snaggle-green-light: 142 86% 65%;
+    --snaggle-gold: 45 100% 51%; /* #FFD700 */
+    --snaggle-gold-dark: 45 100% 45%;
+    --snaggle-gold-light: 45 100% 60%;
+    --snaggle-green: 158 100% 50%; /* #00FF85 Neon Green */
+    --snaggle-green-dark: 158 100% 40%;
+    --snaggle-green-light: 158 100% 60%;
+    --snaggle-green-foreground: 0 0% 0%; /* Black text on green */
+    --trust-blue: 196 73% 53%; /* #3BAFDA */
     
     /* Card System */
     --card: 0 0% 100%;
@@ -54,17 +56,22 @@
     --input-border: 0 0% 85%;
     --ring: 270 95% 75%;
     
-    /* Gradients - Reduced intensity */
+    /* Gradients - Balanced Trust + Vibrance */
     --gradient-radial: radial-gradient(circle at 50% 50%, hsl(270 95% 75% / 0.03) 0%, hsl(0 0% 98%) 50%);
     --gradient-hero: radial-gradient(ellipse at center, hsl(270 95% 75% / 0.05) 0%, hsl(0 0% 98%) 70%);
     --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(0 0% 98%));
+    --gradient-primary-action: linear-gradient(135deg, hsl(158 100% 50%), hsl(45 100% 51%));
     
-    /* Shadows & Glows - Reduced intensity */
+    /* Shadows & Glows */
     --shadow-glow-sm: 0 0 20px hsl(270 95% 75% / 0.1);
     --shadow-glow-md: 0 0 40px hsl(270 95% 75% / 0.15);
     --shadow-glow-lg: 0 0 60px hsl(270 95% 75% / 0.2);
     --shadow-card: 0 8px 32px hsl(0 0% 0% / 0.1);
     --shadow-button: 0 0 20px hsl(270 95% 75% / 0.15);
+    --shadow-green-glow: 0 0 20px hsl(158 100% 50% / 0.3);
+    --shadow-green-glow-hover: 0 0 30px hsl(158 100% 50% / 0.5);
+    --shadow-gold-glow: 0 0 15px hsl(45 100% 51% / 0.3);
+    --shadow-logo-glow: 0 0 25px hsl(158 100% 50% / 0.4);
     
     --radius: 0.75rem;
 
@@ -89,19 +96,20 @@
     min-height: 100vh;
   }
   
-  /* Dark theme overrides */
+  /* Dark theme overrides - Balanced Trust + Vibrance */
   .dark {
-    --background: 0 0% 3%;
+    --background: 0 0% 5.5%; /* Dark charcoal #0E0E0E */
     --foreground: 0 0% 98%;
-    --card: 0 0% 6%;
+    --card: 0 0% 9%; /* Neutral dark surface */
     --card-foreground: 0 0% 95%;
     --card-border: 0 0% 12%;
     --muted: 0 0% 8%;
     --muted-foreground: 0 0% 60%;
     --border: 0 0% 12%;
     --input: 0 0% 8%;
-    --gradient-radial: radial-gradient(circle at 50% 50%, hsl(270 95% 75% / 0.08) 0%, hsl(0 0% 3%) 50%);
-    --gradient-hero: radial-gradient(ellipse at center, hsl(270 95% 75% / 0.1) 0%, hsl(0 0% 3%) 70%);
+    --gradient-radial: radial-gradient(circle at 50% 50%, hsl(270 100% 12% / 0.3) 0%, hsl(0 0% 5.5%) 50%);
+    --gradient-hero: radial-gradient(ellipse at center, hsl(270 100% 12% / 0.4) 0%, hsl(0 0% 5.5%) 70%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 9%), hsl(0 0% 7%));
   }
   
   /* Scrollbar styling for dark theme */
@@ -124,7 +132,7 @@
 }
 
 @layer components {
-  /* Glow utilities with intensity control */
+  /* Glow utilities */
   .snaggle-glow-sm {
     box-shadow: var(--shadow-glow-sm);
   }
@@ -137,12 +145,20 @@
     box-shadow: var(--shadow-glow-lg);
   }
   
-  .glow-green {
-    box-shadow: var(--shadow-glow-sm);
+  .logo-glow {
+    text-shadow: var(--shadow-logo-glow);
   }
   
-  .glow-green-hover:hover {
-    box-shadow: var(--shadow-glow-md);
+  .green-glow {
+    box-shadow: var(--shadow-green-glow);
+  }
+  
+  .green-glow-hover:hover {
+    box-shadow: var(--shadow-green-glow-hover);
+  }
+  
+  .gold-glow {
+    box-shadow: var(--shadow-gold-glow);
   }
   
   /* Gradient backgrounds */
@@ -156,5 +172,25 @@
   
   .bg-gradient-card {
     background: var(--gradient-card);
+  }
+  
+  .bg-gradient-primary-action {
+    background: var(--gradient-primary-action);
+  }
+  
+  /* Pulse animation for timer <1min */
+  @keyframes timer-pulse {
+    0%, 100% {
+      opacity: 1;
+      box-shadow: var(--shadow-gold-glow);
+    }
+    50% {
+      opacity: 0.8;
+      box-shadow: 0 0 25px hsl(45 100% 51% / 0.5);
+    }
+  }
+  
+  .timer-pulse {
+    animation: timer-pulse 1.5s ease-in-out infinite;
   }
 }

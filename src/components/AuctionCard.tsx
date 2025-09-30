@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Clock, Users, Heart } from "lucide-react";
+import { Clock, Users, Heart, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -49,6 +49,9 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
   const isEnding = variant === 'ending-soon' || auction.isEnding;
   const isFeatured = variant === 'featured' || auction.isFeatured;
   const isSoldOut = variant === 'sold-out' || auction.isSoldOut;
+  
+  // Check if timer is under 1 minute for pulse effect
+  const isUrgent = timeRemaining.includes('m') && !timeRemaining.includes('h') && !timeRemaining.includes('d') && parseInt(timeRemaining) < 1;
 
   return (
     <Card className={cn(
@@ -68,8 +71,12 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
         
         {/* Badges */}
         <div className="absolute top-3 left-3 flex flex-col gap-2">
+          <Badge variant="verified" className="flex items-center gap-1">
+            <Shield className="h-3 w-3" />
+            Verified
+          </Badge>
           {isFeatured && (
-            <Badge className="bg-snaggle-gold text-snaggle-gold-foreground">
+            <Badge className="bg-snaggle-gold text-black font-semibold">
               Featured
             </Badge>
           )}
@@ -112,10 +119,19 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
         </div>
 
         <div className="space-y-3">
+          {/* Trust Labels */}
+          <div className="flex flex-wrap gap-2 text-xs text-muted-foreground">
+            <span className="flex items-center gap-1">
+              <Shield className="h-3 w-3 text-[hsl(196,73%,53%)]" />
+              Free shipping included
+            </span>
+            <span>• Authenticity guaranteed</span>
+          </div>
+          
           <div className="flex justify-between items-center">
             <div>
               <p className="text-sm text-muted-foreground">Current bid</p>
-              <p className="text-2xl font-bold text-primary">
+              <p className="text-2xl font-bold text-snaggle-green">
                 ${auction.currentBid.toLocaleString()}
               </p>
             </div>
@@ -129,10 +145,13 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
             )}
           </div>
 
-          <div className="flex items-center justify-between text-sm text-muted-foreground">
-            <div className="flex items-center gap-1">
-              <Clock className="h-4 w-4" />
-              <span>{timeRemaining}</span>
+          <div className="flex items-center justify-between text-sm">
+            <div className={cn(
+              "flex items-center gap-1 px-2 py-1 rounded gold-glow",
+              isUrgent && "timer-pulse"
+            )}>
+              <Clock className="h-4 w-4 text-snaggle-gold" />
+              <span className="font-medium text-snaggle-gold">{timeRemaining}</span>
             </div>
             <div className="flex items-center gap-1">
               <Users className="h-4 w-4" />
@@ -141,9 +160,9 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
           </div>
 
           <div className="flex gap-2">
-            <Button asChild className="flex-1" disabled={isSoldOut}>
+            <Button asChild variant="primary-action" className="flex-1" disabled={isSoldOut}>
               <Link to={`/auctions/${auction.id}`}>
-                {isSoldOut ? 'View Details' : 'Place Bid'}
+                {isSoldOut ? 'View Details' : 'Bid Now'}
               </Link>
             </Button>
             {auction.buyNowPrice && !isSoldOut && (
