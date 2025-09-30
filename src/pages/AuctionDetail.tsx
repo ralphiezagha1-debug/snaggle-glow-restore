@@ -3,18 +3,19 @@ import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
-import { Clock, Heart, Eye, User, ArrowLeft, Gavel, Shield, Info } from "lucide-react";
+import { Clock, Heart, Eye, User, ArrowLeft, Gavel, Shield, Info, Store } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import QuickBidModal from "@/components/modals/QuickBidModal";
+import { flags } from "@/mocks/sellerStore";
 
 const AuctionDetail = () => {
   const { id } = useParams();
   const { toast } = useToast();
-  const [bidAmount, setBidAmount] = useState("");
   const [isWatching, setIsWatching] = useState(false);
-  const [isPlacingBid, setIsPlacingBid] = useState(false);
+  const [isQuickBidModalOpen, setIsQuickBidModalOpen] = useState(false);
+  const [localBid, setLocalBid] = useState(8750);
 
   // Mock auction data - TODO: Replace with API call
   const auction = {
@@ -31,6 +32,7 @@ const AuctionDetail = () => {
     condition: "Excellent",
     seller: {
       name: "VintageGuitars_Pro",
+      username: "retro_rick",
       rating: 4.9,
       salesCount: 247,
     },
@@ -58,27 +60,34 @@ const AuctionDetail = () => {
     }
   };
 
-  const handlePlaceBid = async () => {
-    const bid = parseFloat(bidAmount);
-    if (!bid || bid <= auction.currentBid) {
+  const handleQuickBid = () => {
+    if (!flags.quickBidUI) return;
+    
+    // Mock authentication check
+    const isLoggedIn = false; // This would come from auth context
+    
+    if (!isLoggedIn) {
       toast({
-        title: "Invalid bid amount",
-        description: `Bid must be higher than current bid of $${auction.currentBid.toLocaleString()}`,
+        title: "Sign in required",
+        description: "Please sign in to place bids",
         variant: "destructive",
       });
       return;
     }
-
-    setIsPlacingBid(true);
-    // TODO: Implement actual bid placement API call
-    setTimeout(() => {
+    
+    // Mock credits check
+    const hasCredits = true; // This would come from user context
+    
+    if (!hasCredits) {
       toast({
-        title: "Bid placed successfully!",
-        description: `Your bid of $${bid.toLocaleString()} has been placed.`,
+        title: "No credits",
+        description: "Purchase credits to place quick bids",
+        variant: "destructive",
       });
-      setBidAmount("");
-      setIsPlacingBid(false);
-    }, 1000);
+      return;
+    }
+    
+    setIsQuickBidModalOpen(true);
   };
 
   const toggleWatch = () => {
@@ -90,8 +99,6 @@ const AuctionDetail = () => {
         : "You'll receive notifications about this auction",
     });
   };
-
-  const nextMinBid = auction.currentBid + auction.minBidIncrement;
 
   return (
     <div className="min-h-screen py-8">
@@ -215,7 +222,7 @@ const AuctionDetail = () => {
                   <div className="text-center">
                     <p className="text-sm text-muted-foreground">Current Bid</p>
                     <p className="text-4xl font-bold text-primary">
-                      ${auction.currentBid.toLocaleString()}
+                      ${localBid.toLocaleString()}
                     </p>
                     <p className="text-sm text-muted-foreground">
                       {auction.bidCount} bids • Starting bid: ${auction.startingBid.toLocaleString()}
@@ -241,6 +248,7 @@ const AuctionDetail = () => {
                       </Button>
                       <Button
                         variant="primary"
+                        onClick={handleQuickBid}
                         className="flex-1"
                       >
                         <Gavel className="mr-2 h-4 w-4" />
@@ -277,8 +285,16 @@ const AuctionDetail = () => {
                     <span className="text-muted-foreground">Total Sales:</span>
                     <span className="font-medium">{auction.seller.salesCount}</span>
                   </div>
-                  <Button variant="outline" size="sm" className="w-full">
-                    View Seller Profile
+                  <Button 
+                    asChild
+                    variant="ghost-green" 
+                    size="sm" 
+                    className="w-full"
+                  >
+                    <Link to={`/store/${auction.seller.username}`} className="flex items-center justify-center gap-2">
+                      <Store className="h-4 w-4" />
+                      Visit Store
+                    </Link>
                   </Button>
                 </div>
               </CardContent>
@@ -302,6 +318,17 @@ const AuctionDetail = () => {
             </Card>
           </div>
         </div>
+
+        {/* Quick Bid Modal */}
+        {isQuickBidModalOpen && (
+          <QuickBidModal
+            isOpen={isQuickBidModalOpen}
+            onClose={() => setIsQuickBidModalOpen(false)}
+            lotId={auction.id}
+            lotTitle={auction.title}
+            currentBid={localBid}
+          />
+        )}
       </div>
     </div>
   );
