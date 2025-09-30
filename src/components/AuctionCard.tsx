@@ -1,9 +1,11 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Clock, Users, Heart, Shield } from "lucide-react";
+import { Clock, Users, Heart, Shield, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
+import { toast } from "@/hooks/use-toast";
 
 export interface AuctionItem {
   id: string;
@@ -28,6 +30,9 @@ interface AuctionCardProps {
 }
 
 export const AuctionCard = ({ auction, variant = 'default', className }: AuctionCardProps) => {
+  const [isQuickBidding, setIsQuickBidding] = useState(false);
+  const [localBid, setLocalBid] = useState(auction.currentBid);
+  
   const getTimeRemaining = (endTime: Date) => {
     const now = new Date();
     const diff = endTime.getTime() - now.getTime();
@@ -36,13 +41,22 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
     
     const hours = Math.floor(diff / (1000 * 60 * 60));
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
     
     if (hours > 24) {
       const days = Math.floor(hours / 24);
       return `${days}d ${hours % 24}h`;
     }
     
-    return `${hours}h ${minutes}m`;
+    if (hours > 0) {
+      return `${hours}h ${minutes}m`;
+    }
+    
+    if (minutes > 0) {
+      return `${minutes}m ${seconds}s`;
+    }
+    
+    return `${seconds}s`;
   };
 
   const timeRemaining = getTimeRemaining(auction.endTime);
@@ -50,8 +64,61 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
   const isFeatured = variant === 'featured' || auction.isFeatured;
   const isSoldOut = variant === 'sold-out' || auction.isSoldOut;
   
-  // Check if timer is under 1 minute for pulse effect
-  const isUrgent = timeRemaining.includes('m') && !timeRemaining.includes('h') && !timeRemaining.includes('d') && parseInt(timeRemaining) < 1;
+  // Check if timer is under 60 seconds for urgency styling
+  const isUrgent = timeRemaining.includes('s') && !timeRemaining.includes('m') && !timeRemaining.includes('h') && !timeRemaining.includes('d');
+
+  const handleQuickBid = async () => {
+    // Mock authentication check
+    const isLoggedIn = false; // This would come from auth context
+    
+    if (!isLoggedIn) {
+      toast({
+        title: "Sign in required",
+        description: "Please sign in to place bids",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    // Mock credits check
+    const hasCredits = true; // This would come from user context
+    
+    if (!hasCredits) {
+      toast({
+        title: "No credits",
+        description: "Purchase credits to place quick bids",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    setIsQuickBidding(true);
+    
+    try {
+      // Optimistic update
+      const newBid = localBid + 50; // Increment by $50
+      setLocalBid(newBid);
+      
+      // Mock API call
+      await new Promise(resolve => setTimeout(resolve, 800));
+      
+      toast({
+        title: "Bid placed ✓",
+        description: `Your bid of $${newBid.toLocaleString()} has been placed`,
+      });
+      
+    } catch (error) {
+      // Rollback on error
+      setLocalBid(auction.currentBid);
+      toast({
+        title: "Bid failed",
+        description: "Unable to place bid. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsQuickBidding(false);
+    }
+  };
 
   return (
     <Card className={cn(
@@ -138,33 +205,68 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
               </div>
             </div>
             <div className="flex justify-between items-end">
-              <p className="text-3xl font-bold text-[#00FF80]">
-                ${auction.currentBid.toLocaleString()}
-              </p>
-              {auction.buyNowPrice && (
-                <div className="text-right">
-                  <p className="text-xs text-white/50">Buy now</p>
-                  <p className="text-lg font-semibold text-white/90">
-                    ${auction.buyNowPrice.toLocaleString()}
-                  </p>
-                </div>
-              )}
+              <div>
+                <p className="text-3xl font-bold text-[#00FF80]">
+                  ${localBid.toLocaleString()}
+                </p>
+              </div>
+              
+              {/* Quick Bid - Desktop */}
+              <div className="hidden sm:flex flex-col items-end gap-2">
+                {auction.buyNowPrice && (
+                  <div className="text-right mb-2">
+                    <p className="text-xs text-white/50">Buy now</p>
+                    <p className="text-lg font-semibold text-white/90">
+                      ${auction.buyNowPrice.toLocaleString()}
+                    </p>
+                  </div>
+                )}
+                <button
+                  onClick={handleQuickBid}
+                  disabled={isQuickBidding || isSoldOut}
+                  className="quick-bid-btn disabled:opacity-60 disabled:cursor-not-allowed flex items-center gap-1"
+                  aria-label={`Quick bid on ${auction.title}`}
+                >
+                  {isQuickBidding ? (
+                    <Loader2 className="h-3 w-3 animate-spin" />
+                  ) : null}
+                  Quick Bid
+                </button>
+                <p className="text-xs text-white/40">uses 1 credit</p>
+              </div>
+            </div>
+            
+            {/* Quick Bid - Mobile */}
+            <div className="sm:hidden mt-3">
+              <button
+                onClick={handleQuickBid}
+                disabled={isQuickBidding || isSoldOut}
+                className="quick-bid-btn w-full disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                aria-label={`Quick bid on ${auction.title}`}
+              >
+                {isQuickBidding ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : null}
+                Quick Bid
+              </button>
+              <p className="text-xs text-white/40 text-center mt-1">uses 1 credit</p>
             </div>
           </div>
 
           {/* Timer */}
           <div className={cn(
-            "inline-flex items-center rounded-lg px-3 py-1.5 text-sm bg-white/5 text-white/70 transition-all border border-white/10",
-            isUrgent && "bg-[#FFD700]/15 text-[#FFD700] border-[#FFD700]/30 timer-pulse"
+            "inline-flex items-center rounded-lg px-3 py-1.5 text-sm bg-white/5 text-white border border-white/10 transition-all",
+            isUrgent && "timer-urgent timer-urgent-pulse"
           )}>
-            <Clock className={cn("h-4 w-4 mr-1.5", isUrgent ? "text-[#FFD700]" : "text-white/70")} />
+            <Clock className={cn("h-4 w-4 mr-1.5", isUrgent ? "text-[#E7B10A]" : "text-white/70")} />
             <span className="font-semibold">{timeRemaining}</span>
           </div>
 
           {/* CTA Button */}
           <Button 
             asChild 
-            className="w-full glass-effect bg-[#007BFF] text-white font-bold hover:shadow-[0_0_20px_rgba(0,255,128,0.6)] transition-all h-11" 
+            variant="ghost-green"
+            className="w-full h-11" 
             disabled={isSoldOut}
           >
             <Link to={`/auctions/${auction.id}`}>

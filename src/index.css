@@ -75,7 +75,7 @@
 
   body {
     @apply text-white;
-    background: linear-gradient(180deg, #0D0D0D 0%, #0A0F24 50%, #1B1036 100%);
+    background: linear-gradient(135deg, #0D0D0D 0%, #0A0F24 50%, #1B1036 100%);
     background-attachment: fixed;
     min-height: 100vh;
   }
@@ -167,7 +167,47 @@
   .neon-divider {
     height: 2px;
     background: linear-gradient(90deg, transparent 0%, #00FF80 50%, transparent 100%);
-    box-shadow: 0 0 8px rgba(0, 255, 128, 0.6);
+    box-shadow: 0 0 4px rgba(0, 255, 128, 0.3);
+  }
+  
+  /* Quick Bid button */
+  .quick-bid-btn {
+    background: #00C46A;
+    color: white;
+    border-radius: 9999px;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0, 196, 106, 0.2);
+    transition: all 0.2s ease;
+  }
+  
+  .quick-bid-btn:hover {
+    background: #00D474;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 196, 106, 0.3);
+  }
+  
+  .quick-bid-btn:disabled {
+    opacity: 0.6;
+    transform: none;
+    cursor: not-allowed;
+  }
+  
+  /* Timer urgency styling */
+  .timer-urgent {
+    color: #E7B10A;
+    background: rgba(231, 177, 10, 0.1);
+    border-color: rgba(231, 177, 10, 0.3);
+  }
+  
+  .timer-urgent-pulse {
+    animation: timer-urgent-pulse 1.5s ease-in-out infinite;
+  }
+  
+  @keyframes timer-urgent-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
   }
   
   /* Card hover with neon green border glow */

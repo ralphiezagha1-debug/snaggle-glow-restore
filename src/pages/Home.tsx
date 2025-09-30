@@ -81,33 +81,32 @@ const Home = () => {
             </Button>
             <Button 
               size="lg" 
-              variant="outline" 
+              variant="ghost-green" 
               asChild
-              className="bg-white/5 text-white hover:bg-white/10 border-white/20 backdrop-blur-sm"
             >
               <Link to="/how-it-works">Learn How It Works</Link>
             </Button>
           </div>
           {/* Trust row */}
-          <div className="flex flex-wrap items-center gap-6 text-base">
-            <span className="inline-flex items-center gap-2">
-              <svg className="h-5 w-5 text-[#5DBAFF]" fill="currentColor" viewBox="0 0 20 20">
+          <div className="flex flex-wrap items-center gap-8 text-lg">
+            <span className="inline-flex items-center gap-3">
+              <svg className="h-6 w-6 text-[#5DBAFF]" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
-              <span className="font-semibold text-white">Verified sellers</span>
+              <span className="font-bold text-white">Verified sellers</span>
             </span>
-            <span className="inline-flex items-center gap-2">
-              <svg className="h-5 w-5 text-[#5DBAFF]" fill="currentColor" viewBox="0 0 20 20">
+            <span className="inline-flex items-center gap-3">
+              <svg className="h-6 w-6 text-[#5DBAFF]" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
-              <span className="font-semibold text-white">Buyer protection</span>
+              <span className="font-bold text-white">Buyer protection</span>
             </span>
-            <span className="inline-flex items-center gap-2">
-              <svg className="h-5 w-5 text-[#5DBAFF]" fill="currentColor" viewBox="0 0 20 20">
+            <span className="inline-flex items-center gap-3">
+              <svg className="h-6 w-6 text-[#5DBAFF]" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
                 <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z" />
               </svg>
-              <span className="font-semibold text-white">Free shipping on wins</span>
+              <span className="font-bold text-white">Free shipping on wins</span>
             </span>
           </div>
         </div>
@@ -165,7 +164,7 @@ const Home = () => {
                       ${auction.currentBid.toLocaleString()}
                     </p>
                   </div>
-                  <Button asChild className="w-full glass-effect bg-[#007BFF] text-white font-bold hover:shadow-[0_0_20px_rgba(0,255,128,0.6)] transition-all h-11">
+                  <Button asChild variant="ghost-green" className="w-full h-11">
                     <Link to={`/auctions/${auction.id}`}>
                       View Auction
                     </Link>
