@@ -226,34 +226,13 @@ const AuctionDetail = () => {
 
                   {/* Bidding Form */}
                   <div className="space-y-4">
-                    <div>
-                      <label className="text-sm font-medium">Place Your Bid</label>
-                      <div className="flex space-x-2 mt-2">
-                        <Input
-                          type="number"
-                          placeholder={`Min: $${nextMinBid.toLocaleString()}`}
-                          value={bidAmount}
-                          onChange={(e) => setBidAmount(e.target.value)}
-                          min={nextMinBid}
-                          step={auction.minBidIncrement}
-                        />
-                        <Button
-                          onClick={handlePlaceBid}
-                          disabled={isPlacingBid}
-                          className="glow-green-hover"
-                        >
-                          <Gavel className="mr-2 h-4 w-4" />
-                          {isPlacingBid ? "Placing..." : "Bid"}
-                        </Button>
-                      </div>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        Minimum increment: ${auction.minBidIncrement}
-                      </p>
+                    <div className="text-center">
+                      <p className="text-xs text-muted-foreground">+ $0.01 / bid • uses 1 credit</p>
                     </div>
 
                     <div className="flex space-x-2">
                       <Button
-                        variant="outline"
+                        variant="ghost-green"
                         onClick={toggleWatch}
                         className="flex-1"
                       >
@@ -261,11 +240,11 @@ const AuctionDetail = () => {
                         {isWatching ? "Watching" : "Watch"}
                       </Button>
                       <Button
-                        variant="outline"
-                        onClick={() => setBidAmount(nextMinBid.toString())}
+                        variant="primary"
                         className="flex-1"
                       >
-                        Quick Bid ${nextMinBid.toLocaleString()}
+                        <Gavel className="mr-2 h-4 w-4" />
+                        Quick Bid
                       </Button>
                     </div>
                   </div>

@@ -1,50 +1,134 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Button } from '../ui/button';
+import { useToast } from '@/hooks/use-toast';
 
 interface QuickBidButtonProps {
   auctionId: string;
   creditCost?: number;
   onSuccess?: () => void;
+  onOptimisticUpdate?: () => void;
 }
 
 export default function QuickBidButton({ 
   auctionId, 
   creditCost = 1, 
-  onSuccess 
+  onSuccess,
+  onOptimisticUpdate
 }: QuickBidButtonProps) {
   const [busy, setBusy] = useState(false);
-  
-  async function handleClick() {
-    if (busy) return;
+  const { toast } = useToast();
+  const cooldownRef = useRef(false);
+  const repeatIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const INCREMENT = 0.01;
+
+  async function placeBid() {
+    if (busy || cooldownRef.current) return;
+    
+    // Check auth & credits here - mock implementation
+    const isLoggedIn = true; // Replace with actual auth check
+    const hasCredits = true; // Replace with actual credit check
+    
+    if (!isLoggedIn) {
+      toast({
+        title: "Sign in required",
+        description: "Please sign in to place bids",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    if (!hasCredits) {
+      toast({
+        title: "Insufficient credits",
+        description: "Please purchase credits to continue bidding",
+        variant: "destructive"
+      });
+      return;
+    }
+
     setBusy(true);
+    cooldownRef.current = true;
+    
+    // Optimistic update
+    onOptimisticUpdate?.();
     
     try {
-      // optimistic: local event for UI can be dispatched here if needed
       const res = await fetch(`/api/bid/quick`, {
         method: 'POST', 
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ auctionId, creditCost })
+        body: JSON.stringify({ auctionId })
       });
       
-      if (!res.ok) throw new Error(await res.text());
+      if (!res.ok) {
+        const error = await res.text();
+        throw new Error(error);
+      }
       
+      const result = await res.json();
       onSuccess?.();
-      // toast success (app's toast util if present)
+      
+      toast({
+        title: "Bid placed ✓",
+        description: `+$${INCREMENT.toFixed(2)} • ${creditCost} credit used`,
+      });
     } catch (e: any) {
-      // toast error
+      toast({
+        title: "Bid failed",
+        description: e.message || "Failed to place bid",
+        variant: "destructive"
+      });
       console.error('Quick bid failed:', e);
     } finally {
-      setTimeout(() => setBusy(false), 1000); // spam guard ~1s
+      setBusy(false);
+      // Cooldown period
+      setTimeout(() => {
+        cooldownRef.current = false;
+      }, 400); // 400ms cooldown between bids
     }
   }
-  
+
+  // Handle mouse down for repeat bidding on mobile
+  function handleMouseDown() {
+    placeBid();
+    // Start repeat bidding after 500ms
+    setTimeout(() => {
+      if (repeatIntervalRef.current) return;
+      repeatIntervalRef.current = setInterval(() => {
+        placeBid();
+      }, 333); // ~3 bids/sec
+    }, 500);
+  }
+
+  function handleMouseUp() {
+    if (repeatIntervalRef.current) {
+      clearInterval(repeatIntervalRef.current);
+      repeatIntervalRef.current = null;
+    }
+  }
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (repeatIntervalRef.current) {
+        clearInterval(repeatIntervalRef.current);
+      }
+    };
+  }, []);
+
   return (
     <div className="flex flex-col items-end gap-1">
       <Button 
         variant="quick-bid" 
-        onClick={handleClick} 
+        onClick={placeBid}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+        onTouchStart={handleMouseDown}
+        onTouchEnd={handleMouseUp}
         disabled={busy} 
-        className="px-4 py-2"
+        className="px-4 py-2 select-none"
+        aria-label={`Quick bid on auction ${auctionId}`}
       >
         {busy ? 'Bidding…' : 'Quick Bid'}
       </Button>

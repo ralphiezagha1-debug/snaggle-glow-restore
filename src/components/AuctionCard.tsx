@@ -96,7 +96,7 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
     
     try {
       // Optimistic update
-      const newBid = localBid + 50; // Increment by $50
+      const newBid = localBid + 0.01; // Increment by $0.01
       setLocalBid(newBid);
       
       // Mock API call
@@ -209,18 +209,11 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
                 <p className="text-3xl font-bold text-[#00FF80]">
                   ${localBid.toLocaleString()}
                 </p>
+                <p className="text-xs text-white/40 mt-1">+ $0.01 / bid • uses 1 credit</p>
               </div>
               
               {/* Quick Bid - Desktop */}
               <div className="hidden sm:flex flex-col items-end gap-2">
-                {auction.buyNowPrice && (
-                  <div className="text-right mb-2">
-                    <p className="text-xs text-white/50">Buy now</p>
-                    <p className="text-lg font-semibold text-white/90">
-                      ${auction.buyNowPrice.toLocaleString()}
-                    </p>
-                  </div>
-                )}
                 <button
                   onClick={handleQuickBid}
                   disabled={isQuickBidding || isSoldOut}
@@ -232,7 +225,6 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
                   ) : null}
                   Quick Bid
                 </button>
-                <p className="text-xs text-white/40">uses 1 credit</p>
               </div>
             </div>
             
@@ -249,7 +241,6 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
                 ) : null}
                 Quick Bid
               </button>
-              <p className="text-xs text-white/40 text-center mt-1">uses 1 credit</p>
             </div>
           </div>
 
@@ -262,17 +253,25 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
             <span className="font-semibold">{timeRemaining}</span>
           </div>
 
-          {/* CTA Button */}
-          <Button 
-            asChild 
-            variant="ghost-green"
-            className="w-full h-11" 
-            disabled={isSoldOut}
-          >
-            <Link to={`/auctions/${auction.id}`}>
-              {isSoldOut ? 'View Details' : 'View Auction'}
-            </Link>
-          </Button>
+          {/* Secondary Actions */}
+          <div className="flex gap-2">
+            <Button 
+              asChild 
+              variant="ghost-green"
+              className="flex-1 h-11" 
+              disabled={isSoldOut}
+            >
+              <Link to={`/auctions/${auction.id}`}>
+                {isSoldOut ? 'View Details' : 'View Auction'}
+              </Link>
+            </Button>
+            <Button 
+              variant="ghost-green"
+              className="flex-1 h-11" 
+            >
+              Watch
+            </Button>
+          </div>
         </div>
       </CardContent>
     </Card>

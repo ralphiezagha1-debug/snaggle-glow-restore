@@ -153,29 +153,25 @@ export const AuctionRoom: React.FC<AuctionRoomProps> = ({ auctionId }) => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Gavel className="w-5 h-5" />
-                Place Bid
+                Quick Bid
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Bid Amount</label>
-                <Input
-                  type="number"
-                  placeholder={`Min: $${auction.currentPrice + auction.minIncrement}`}
-                  value={bidAmount}
-                  onChange={(e) => setBidAmount(e.target.value)}
-                />
+              <div className="text-center">
+                <p className="text-xs text-muted-foreground">+ $0.01 / bid • uses 1 credit</p>
               </div>
               <Button 
                 onClick={handlePlaceBid}
                 className="w-full" 
                 size="lg"
-                disabled={!bidAmount || Number(bidAmount) <= auction.currentPrice}
+                variant="primary"
               >
-                Place Bid ${bidAmount || '0.00'}
+                <Gavel className="mr-2 h-4 w-4" />
+                Quick Bid
               </Button>
-              <div className="text-xs text-muted-foreground text-center">
-                Minimum increment: ${auction.minIncrement}
+              <div className="flex gap-2">
+                <Button variant="ghost-green" className="flex-1">Watch</Button>
+                <Button variant="ghost-green" className="flex-1">View Auction</Button>
               </div>
             </CardContent>
           </Card>
