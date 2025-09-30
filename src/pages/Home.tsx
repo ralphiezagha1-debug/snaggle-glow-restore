@@ -130,45 +130,46 @@ const Home = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
             {featuredAuctions.map((auction) => (
-              <Card key={auction.id} className="bg-gradient-card border-card-border hover:border-primary/50 transition-all duration-300 group">
+              <Card key={auction.id} className="group overflow-hidden transition-all duration-300 rounded-2xl bg-gradient-to-br from-slate-900/95 to-slate-800/95 border border-white/10 shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)] hover:border-[#00FF80] hover:shadow-[0_0_20px_rgba(0,255,128,0.4),inset_0_1px_2px_rgba(255,255,255,0.05)] hover:-translate-y-2">
                 <div className="relative">
-                  <div className="aspect-video bg-muted rounded-t-lg flex items-center justify-center">
-                    <span className="text-muted-foreground">Image Placeholder</span>
+                  <div className="aspect-video bg-slate-800 rounded-t-2xl flex items-center justify-center">
+                    <span className="text-white/40">Image Placeholder</span>
                   </div>
                   {auction.featured && (
-                    <Badge className="absolute top-3 left-3 bg-primary text-primary-foreground">
+                    <Badge className="absolute top-3 left-3 bg-[#FFD700] text-black font-semibold">
                       Featured
                     </Badge>
                   )}
-                  <div className="absolute top-3 right-3 bg-background/80 backdrop-blur-sm rounded-lg px-2 py-1 flex items-center space-x-1 gold-glow">
-                    <Clock className="h-3 w-3 text-snaggle-gold" />
-                    <span className="text-xs font-medium text-snaggle-gold">{auction.endTime}</span>
+                  <div className="absolute top-3 right-3 bg-white/5 backdrop-blur-sm rounded-lg px-3 py-1.5 flex items-center gap-2 border border-white/10">
+                    <Clock className="h-3.5 w-3.5 text-[#FFD700]" />
+                    <span className="text-sm font-semibold text-[#FFD700]">{auction.endTime}</span>
                   </div>
                 </div>
-                <CardHeader>
-                  <CardTitle className="line-clamp-2 group-hover:text-primary transition-colors">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-xl font-bold text-white line-clamp-2 group-hover:text-[#00FF80] transition-colors">
                     {auction.title}
                   </CardTitle>
-                  <CardDescription className="flex items-center justify-between">
-                    <span>Current Bid</span>
-                    <span className="text-snaggle-green font-bold text-lg">
-                      ${auction.currentBid.toLocaleString()}
-                    </span>
-                  </CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">
-                      {auction.bidCount} bids
-                    </span>
-                    <Button asChild variant="secondary" size="sm">
-                      <Link to={`/auctions/${auction.id}`}>
-                        View Auction
-                      </Link>
-                    </Button>
+                <CardContent className="space-y-4">
+                  <div className="space-y-1">
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-sm text-white/60 font-medium">Current Bid</span>
+                      <div className="flex items-center gap-1.5 text-white/50 text-xs">
+                        <Users className="h-3.5 w-3.5" />
+                        <span>{auction.bidCount} bids</span>
+                      </div>
+                    </div>
+                    <p className="text-3xl font-bold text-[#00FF80]">
+                      ${auction.currentBid.toLocaleString()}
+                    </p>
                   </div>
+                  <Button asChild className="w-full glass-effect bg-[#007BFF] text-white font-bold hover:shadow-[0_0_20px_rgba(0,255,128,0.6)] transition-all h-11">
+                    <Link to={`/auctions/${auction.id}`}>
+                      View Auction
+                    </Link>
+                  </Button>
                 </CardContent>
               </Card>
             ))}

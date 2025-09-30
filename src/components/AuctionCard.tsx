@@ -55,7 +55,11 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
 
   return (
     <Card className={cn(
-      "group overflow-hidden transition-all duration-300 bg-white/[0.04] border-white/10 card-hover-glow",
+      "group overflow-hidden transition-all duration-300 rounded-2xl",
+      "bg-gradient-to-br from-slate-900/95 to-slate-800/95 border border-white/10",
+      "shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)]",
+      "hover:border-[#00FF80] hover:shadow-[0_0_20px_rgba(0,255,128,0.4),inset_0_1px_2px_rgba(255,255,255,0.05)]",
+      "hover:-translate-y-2",
       isFeatured && "ring-2 ring-[#FFD700]",
       isEnding && "ring-2 ring-destructive",
       isSoldOut && "opacity-60",
@@ -65,7 +69,7 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
         <img
           src={auction.imageUrl}
           alt={auction.title}
-          className="w-full h-48 object-cover rounded-t-lg"
+          className="w-full h-56 object-cover rounded-t-2xl"
         />
         
         {/* Badges */}
@@ -102,80 +106,71 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
         </Button>
       </div>
 
-      <CardContent className="p-4 space-y-3">
+      <CardContent className="p-5 space-y-4">
         <div>
-          <Badge variant="outline" className="mb-2 border-white/20 text-white/80">
+          <Badge variant="outline" className="mb-3 border-white/30 text-white/80 text-xs">
             {auction.category}
           </Badge>
           <Link to={`/auctions/${auction.id}`}>
-            <h3 className="font-semibold text-lg text-white hover:text-[#00FF80] transition-colors line-clamp-1">
+            <h3 className="font-bold text-xl text-white hover:text-[#00FF80] transition-colors line-clamp-2 leading-tight">
               {auction.title}
             </h3>
           </Link>
-          <p className="text-white/60 text-sm line-clamp-2 mt-1">
-            {auction.description}
-          </p>
         </div>
 
-        <div className="space-y-3">
+        <div className="space-y-4">
           {/* Trust Labels */}
-          <div className="flex flex-wrap gap-2 text-xs font-medium text-white">
+          <div className="flex flex-wrap gap-2 text-xs font-medium text-white/70">
             <span className="flex items-center gap-1.5">
               <Shield className="h-3.5 w-3.5 text-[#5DBAFF]" />
-              Free shipping included
+              Free shipping
             </span>
             <span>• Authenticity guaranteed</span>
           </div>
           
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-sm text-white/60">Current bid</p>
-              <p className="text-2xl font-bold text-[#00FF80]">
+          {/* Price Section - Lower Third */}
+          <div className="pt-2 space-y-1">
+            <div className="flex items-baseline gap-2">
+              <p className="text-sm text-white/60 font-medium">Current bid</p>
+              <div className="flex items-center gap-2 text-white/50 text-xs">
+                <Users className="h-3.5 w-3.5" />
+                <span>{auction.bidCount} bids</span>
+              </div>
+            </div>
+            <div className="flex justify-between items-end">
+              <p className="text-3xl font-bold text-[#00FF80]">
                 ${auction.currentBid.toLocaleString()}
               </p>
-            </div>
-            {auction.buyNowPrice && (
-              <div className="text-right">
-                <p className="text-sm text-white/50">Buy now</p>
-                <p className="text-lg font-semibold text-white/90">
-                  ${auction.buyNowPrice.toLocaleString()}
-                </p>
-              </div>
-            )}
-          </div>
-
-          <div className="flex items-center justify-between text-sm">
-            <div className={cn(
-              "inline-flex items-center rounded-md px-2 py-1 text-xs bg-white/6 text-white/70 transition-all",
-              isUrgent && "bg-[#FFD700]/15 text-[#FFD700] ring-1 ring-[#FFD700]/30 timer-pulse"
-            )}>
-              <Clock className={cn("h-4 w-4 mr-1", isUrgent ? "text-[#FFD700]" : "text-white/70")} />
-              <span className="font-medium">{timeRemaining}</span>
-            </div>
-            <div className="flex items-center gap-1 text-white/50">
-              <Users className="h-4 w-4" />
-              <span>{auction.bidCount} bids</span>
+              {auction.buyNowPrice && (
+                <div className="text-right">
+                  <p className="text-xs text-white/50">Buy now</p>
+                  <p className="text-lg font-semibold text-white/90">
+                    ${auction.buyNowPrice.toLocaleString()}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
 
-          <div className="flex gap-2">
-            <Button 
-              asChild 
-              className="flex-1 glass-effect bg-[#007BFF] text-white font-semibold hover:shadow-[0_0_20px_rgba(0,255,128,0.6)] transition-all" 
-              disabled={isSoldOut}
-            >
-              <Link to={`/auctions/${auction.id}`}>
-                {isSoldOut ? 'View Details' : 'Bid Now'}
-              </Link>
-            </Button>
-            {auction.buyNowPrice && !isSoldOut && (
-              <Button variant="outline" asChild className="border-white/20 text-white hover:bg-white/10 backdrop-blur-sm">
-                <Link to={`/auctions/${auction.id}?action=buy-now`}>
-                  Buy Now
-                </Link>
-              </Button>
-            )}
+          {/* Timer */}
+          <div className={cn(
+            "inline-flex items-center rounded-lg px-3 py-1.5 text-sm bg-white/5 text-white/70 transition-all border border-white/10",
+            isUrgent && "bg-[#FFD700]/15 text-[#FFD700] border-[#FFD700]/30 timer-pulse"
+          )}>
+            <Clock className={cn("h-4 w-4 mr-1.5", isUrgent ? "text-[#FFD700]" : "text-white/70")} />
+            <span className="font-semibold">{timeRemaining}</span>
           </div>
+
+          {/* CTA Button */}
+          <Button 
+            asChild 
+            className="w-full glass-effect bg-[#007BFF] text-white font-bold hover:shadow-[0_0_20px_rgba(0,255,128,0.6)] transition-all h-11" 
+            disabled={isSoldOut}
+          >
+            <Link to={`/auctions/${auction.id}`}>
+              {isSoldOut ? 'View Details' : 'View Auction'}
+            </Link>
+          </Button>
         </div>
       </CardContent>
     </Card>
