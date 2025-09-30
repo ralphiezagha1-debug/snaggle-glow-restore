@@ -26,7 +26,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-white/5 bg-black/40 backdrop-blur-md">
+    <nav className="sticky top-0 z-50 w-full border-b border-white/10 bg-black/60 backdrop-blur-md">
       <div className="container mx-auto px-4">
         <div className="flex h-14 items-center justify-between">
           {/* Logo */}
@@ -69,7 +69,7 @@ const Navbar = () => {
             </Button>
             <Button 
               asChild 
-              className="bg-gradient-to-r from-[#00FF85] to-[#FFD700] text-black font-semibold hover:shadow-[0_0_20px_rgba(0,255,133,0.25)] transition-shadow rounded-lg px-4 py-2"
+              className="bg-[hsl(210,100%,50%)] text-white font-semibold hover:bg-[hsl(210,100%,55%)] hover:shadow-[0_0_16px_rgba(0,255,133,0.5)] transition-all"
             >
               <Link to="/signup">Get Started</Link>
             </Button>
@@ -129,7 +129,7 @@ const Navbar = () => {
                   </Button>
                   <Button 
                     asChild
-                    className="bg-gradient-to-r from-[#00FF85] to-[#FFD700] text-black font-semibold hover:shadow-[0_0_20px_rgba(0,255,133,0.25)] transition-shadow"
+                    className="bg-[hsl(210,100%,50%)] text-white font-semibold hover:bg-[hsl(210,100%,55%)] hover:shadow-[0_0_16px_rgba(0,255,133,0.5)] transition-all"
                   >
                     <Link to="/signup" onClick={() => setIsOpen(false)}>
                       Get Started

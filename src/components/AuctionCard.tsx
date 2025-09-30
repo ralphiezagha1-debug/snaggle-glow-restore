@@ -119,9 +119,9 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
 
         <div className="space-y-3">
           {/* Trust Labels */}
-          <div className="flex flex-wrap gap-2 text-xs text-white/50">
-            <span className="flex items-center gap-1">
-              <Shield className="h-3 w-3 text-[#3BAFDA]" />
+          <div className="flex flex-wrap gap-2 text-xs text-white">
+            <span className="flex items-center gap-1.5">
+              <Shield className="h-3.5 w-3.5 text-[#3DD7FF]" />
               Free shipping included
             </span>
             <span>• Authenticity guaranteed</span>
@@ -161,7 +161,7 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
           <div className="flex gap-2">
             <Button 
               asChild 
-              className="flex-1 bg-[#00FF85] text-black font-semibold hover:bg-[#00e676] transition-colors" 
+              className="flex-1 bg-[hsl(210,100%,50%)] text-white font-semibold hover:bg-[hsl(210,100%,55%)] hover:shadow-[0_0_16px_rgba(0,255,133,0.5)] transition-all" 
               disabled={isSoldOut}
             >
               <Link to={`/auctions/${auction.id}`}>

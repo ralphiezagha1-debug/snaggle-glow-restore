@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Snaggle Design System - Dark Premium Base */
+/* Snaggle Design System - Premium Dark Base */
 
 @layer base {
   :root {
@@ -11,12 +11,13 @@
     --foreground: 0 0% 5%;
     
     /* Snaggle Brand Colors */
-    --snaggle-bg: 0 0% 5.5%; /* #0E0E0E */
-    --snaggle-bg2: 0 0% 10%; /* #1A1A1A */
+    --snaggle-bg: 220 30% 8%; /* Deep charcoal with navy tint */
+    --snaggle-bg-end: 220 50% 12%; /* Dark navy */
     --snaggle-green: 158 100% 50%; /* #00FF85 Neon Green */
+    --snaggle-blue: 210 100% 50%; /* Solid Blue for CTAs */
     --snaggle-gold: 45 100% 51%; /* #FFD700 */
-    --snaggle-gray: 0 0% 91%; /* #E8E8E8 */
-    --snaggle-sky: 196 73% 53%; /* #3BAFDA Trust Blue */
+    --snaggle-gray: 0 0% 95%; /* Clean white text */
+    --snaggle-sky: 196 100% 60%; /* Bright trust blue #3DD7FF */
     
     /* Card System */
     --card: 0 0% 100%;
@@ -24,9 +25,9 @@
     --card-border: 0 0% 88%;
     
     /* Primary Actions */
-    --primary: 158 100% 50%;
-    --primary-foreground: 0 0% 0%;
-    --primary-hover: 158 100% 45%;
+    --primary: 210 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 158 100% 50%;
     
     /* Secondary Actions */
     --secondary: 0 0% 88%;
@@ -51,18 +52,15 @@
     --input-border: 0 0% 85%;
     --ring: 158 100% 50%;
     
-    /* Gradients */
-    --gradient-radial: radial-gradient(circle at 50% 50%, hsl(0 0% 98%) 0%, hsl(0 0% 98%) 100%);
-    --gradient-hero: radial-gradient(ellipse at center, hsl(0 0% 98%) 0%, hsl(0 0% 98%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(0 0% 98%));
-    --gradient-primary-action: linear-gradient(135deg, hsl(158 100% 50%), hsl(45 100% 51%));
+    /* Premium Gradients */
+    --gradient-base: linear-gradient(135deg, hsl(220 30% 8%) 0%, hsl(220 50% 12%) 100%);
+    --gradient-card: linear-gradient(145deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
     
     /* Tight Drop Shadows - No Fog */
-    --shadow-logo: drop-shadow(0 0 6px rgba(0, 255, 133, 0.35));
-    --shadow-hero: drop-shadow(0 0 10px rgba(0, 255, 133, 0.25));
-    --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.15);
-    --shadow-button-hover: 0 8px 24px rgba(0, 255, 133, 0.25);
-    --shadow-cta-hover: 0 0 20px rgba(0, 255, 133, 0.25);
+    --shadow-logo: drop-shadow(0 0 8px rgba(0, 255, 133, 0.4));
+    --shadow-hero: drop-shadow(0 0 12px rgba(0, 255, 133, 0.35));
+    --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.3);
+    --shadow-cta-hover: 0 0 16px rgba(0, 255, 133, 0.5);
     
     --radius: 0.75rem;
 
@@ -81,25 +79,24 @@
   }
 
   body {
-    @apply bg-[#0E0E0E] text-[#E8E8E8];
-    background: radial-gradient(1200px 600px at 20% 0%, rgba(125, 60, 255, 0.12), transparent);
+    @apply text-[#F2F2F2];
+    background: linear-gradient(135deg, hsl(220 30% 8%) 0%, hsl(220 50% 12%) 100%);
     background-attachment: fixed;
     min-height: 100vh;
   }
   
   /* Dark theme overrides */
   .dark {
-    --background: 0 0% 5.5%; /* #0E0E0E */
-    --foreground: 0 0% 91%; /* #E8E8E8 */
-    --card: 0 0% 3%; /* Neutral dark surface with subtle transparency */
-    --card-foreground: 0 0% 90%;
-    --card-border: 0 0% 5%;
-    --muted: 0 0% 6%;
-    --muted-foreground: 0 0% 50%;
-    --border: 0 0% 5%;
-    --input: 0 0% 8%;
-    --gradient-radial: radial-gradient(1200px 600px at 20% 0%, rgba(125, 60, 255, 0.12), transparent);
-    --gradient-card: linear-gradient(145deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+    --background: 220 30% 8%;
+    --foreground: 0 0% 95%;
+    --card: 220 20% 10%; /* Neutral dark surface */
+    --card-foreground: 0 0% 95%;
+    --card-border: 220 20% 15%;
+    --muted: 220 20% 12%;
+    --muted-foreground: 0 0% 60%;
+    --border: 220 20% 15%;
+    --input: 220 20% 10%;
+    --gradient-card: linear-gradient(145deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
   }
   
   /* Scrollbar styling for dark theme */
