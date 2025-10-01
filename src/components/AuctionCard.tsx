@@ -184,54 +184,51 @@ export const AuctionCard = ({ auction, variant = 'default', className }: Auction
           </div>
           
           {/* Price Section - Lower Third */}
-          <div className="pt-2 space-y-1">
-            <div className="flex items-baseline gap-2">
-              <p className="text-sm text-white/60 font-medium">Current bid</p>
-              <div className="flex items-center gap-2 text-white/50 text-xs">
-                <Users className="h-3.5 w-3.5" />
-                <span>{auction.bidCount} bids</span>
-              </div>
-            </div>
-            <div className="flex justify-between items-end">
-              <div>
+          <div className="pt-2 space-y-3">
+            <div className="flex items-center gap-3">
+              <div className="min-w-0 flex-1">
+                <p className="text-sm text-white/60 font-medium">Current bid</p>
                 <p className="text-3xl font-bold text-[#00FF80]">
                   ${localBid.toLocaleString()}
                 </p>
-                <p className="text-xs text-white/40 mt-1">+ $0.01 / bid • uses 1 credit</p>
+                <div className="flex items-center gap-2 text-white/50 text-xs mt-1">
+                  <Users className="h-3.5 w-3.5" />
+                  <span>{auction.bidCount} bids</span>
+                </div>
               </div>
               
-              {/* Quick Bid - Desktop */}
-              <div className="hidden sm:flex flex-col items-end gap-2">
+              <div className="ml-auto flex items-center gap-2">
                 <Button
-                  variant="quick-bid"
-                  onClick={handleQuickBid}
-                  disabled={isQuickBidding || isSoldOut}
-                  className="px-4 py-2"
-                  aria-label={`Quick bid on ${auction.title}`}
+                  data-testid="quick-bid-card-cta"
+                  aria-label="Quick Bid increase by one cent"
+                  variant="outline"
+                  size="sm"
+                  className="shrink-0"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleQuickBid();
+                  }}
+                  disabled={isQuickBidding || isSoldOut || timeRemaining === 'Ended'}
+                  title={timeRemaining === 'Ended' ? 'Auction ended' : undefined}
                 >
                   {isQuickBidding ? (
                     <Loader2 className="h-3 w-3 animate-spin" />
                   ) : null}
                   Quick Bid
                 </Button>
+                <Button 
+                  asChild
+                  variant="secondary"
+                  size="sm"
+                  className="shrink-0 hidden sm:inline-flex"
+                >
+                  <Link to={`/auctions/${auction.id}`}>
+                    View Auction
+                  </Link>
+                </Button>
               </div>
             </div>
-            
-            {/* Quick Bid - Mobile */}
-            <div className="sm:hidden mt-3">
-              <Button
-                variant="quick-bid"
-                onClick={handleQuickBid}
-                disabled={isQuickBidding || isSoldOut}
-                className="w-full"
-                aria-label={`Quick bid on ${auction.title}`}
-              >
-                {isQuickBidding ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                ) : null}
-                Quick Bid
-              </Button>
-            </div>
+            <p className="text-xs text-white/40">+ $0.01 / bid • uses 1 credit</p>
           </div>
 
           {/* Timer */}

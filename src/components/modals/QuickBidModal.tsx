@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Plus } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { nextPenny } from "@/lib/utils";
 
 interface QuickBidModalProps {
   isOpen: boolean;
@@ -24,48 +23,21 @@ export default function QuickBidModal({
   currentBid,
   minIncrement = 0.01
 }: QuickBidModalProps) {
-  const [bidAmount, setBidAmount] = useState((currentBid + minIncrement).toFixed(2));
-  const [error, setError] = useState("");
+  const initialAmount = nextPenny(currentBid);
+  const [bidAmount, setBidAmount] = useState(initialAmount);
   const { toast } = useToast();
 
-  const handleBidChange = (value: string) => {
-    setBidAmount(value);
-    setError("");
-    
-    const numValue = parseFloat(value);
-    if (isNaN(numValue)) {
-      setError("Please enter a valid amount");
-      return;
-    }
-    
-    if (numValue <= currentBid) {
-      setError("Bid must be higher than current bid");
-      return;
-    }
-    
-    const increment = numValue - currentBid;
-    const validIncrement = Math.round(increment / minIncrement) * minIncrement;
-    
-    if (Math.abs(increment - validIncrement) > 0.001) {
-      setError("Snaggle auctions move by exactly $0.01.");
-      return;
-    }
-  };
-
   const addIncrement = (amount: number) => {
-    const newAmount = currentBid + amount;
-    setBidAmount(newAmount.toFixed(2));
-    setError("");
+    setBidAmount(prevAmount => prevAmount + amount);
   };
 
   const handleSubmit = () => {
-    if (error) return;
-    
     toast({
       title: "Demo mode",
       description: "Backend coming soon — bid functionality disabled",
       variant: "destructive",
     });
+    onClose();
   };
 
   return (
@@ -84,29 +56,18 @@ export default function QuickBidModal({
             </p>
           </div>
 
-          {/* Bid Amount */}
+          {/* Next Bid Display */}
           <div className="space-y-2">
-            <Label htmlFor="bid-amount" className="text-white">Your Bid</Label>
-            <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-white/60">$</span>
-              <Input
-                id="bid-amount"
-                type="number"
-                step="0.01"
-                value={bidAmount}
-                onChange={(e) => handleBidChange(e.target.value)}
-                className="pl-8 bg-white/5 border-white/20 text-white"
-                placeholder="0.00"
-              />
-            </div>
-            {error && (
-              <p className="text-sm text-red-400">{error}</p>
-            )}
+            <div className="text-sm text-white/80">Next bid:</div>
+            <div className="text-3xl font-bold text-[var(--snag-neon)]">${bidAmount.toFixed(2)}</div>
+            <p className="text-xs text-white/60">
+              Snaggle auctions move by exactly $0.01 increments. Manual typing is disabled.
+            </p>
           </div>
 
           {/* Quick Increment Buttons */}
           <div className="space-y-2">
-            <Label className="text-white/80 text-sm">Quick Add</Label>
+            <div className="text-sm text-white/80">Quick Add</div>
             <div className="flex gap-2">
               <Button
                 type="button"
@@ -161,10 +122,9 @@ export default function QuickBidModal({
             <Button 
               variant="primary"
               onClick={handleSubmit}
-              disabled={!!error || !bidAmount}
               className="flex-1"
             >
-              Place Bid
+              Place Bid ${bidAmount.toFixed(2)}
             </Button>
           </div>
         </div>
