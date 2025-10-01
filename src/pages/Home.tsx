@@ -1,10 +1,16 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Clock, Trophy, Zap, Shield, Users, TrendingUp } from "lucide-react";
+import QuickBidModal from "@/components/modals/QuickBidModal";
+import { toast } from "@/hooks/use-toast";
 
 const Home = () => {
+  const [quickBidModalOpen, setQuickBidModalOpen] = useState(false);
+  const [selectedAuction, setSelectedAuction] = useState<{ id: string; title: string; currentBid: number } | null>(null);
+
   // Mock featured auctions
   const featuredAuctions = [
     {
@@ -152,17 +158,37 @@ const Home = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="space-y-1">
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-sm text-white/60 font-medium">Current Bid</span>
-                      <div className="flex items-center gap-1.5 text-white/50 text-xs">
+                  <div className="flex items-center gap-3">
+                    <div className="min-w-0 flex-1">
+                      <div className="text-sm text-white/60 font-medium">Current Bid</div>
+                      <p className="text-3xl font-bold text-[#00FF80]">
+                        ${auction.currentBid.toLocaleString()}
+                      </p>
+                      <div className="flex items-center gap-1.5 text-white/50 text-xs mt-1">
                         <Users className="h-3.5 w-3.5" />
                         <span>{auction.bidCount} bids</span>
                       </div>
                     </div>
-                    <p className="text-3xl font-bold text-[#00FF80]">
-                      ${auction.currentBid.toLocaleString()}
-                    </p>
+                    <div className="ml-auto flex items-center gap-2">
+                      <Button
+                        data-testid="quick-bid-card-cta"
+                        aria-label="Quick Bid increase by one cent"
+                        variant="outline"
+                        size="sm"
+                        className="shrink-0"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setSelectedAuction({
+                            id: auction.id,
+                            title: auction.title,
+                            currentBid: auction.currentBid
+                          });
+                          setQuickBidModalOpen(true);
+                        }}
+                      >
+                        Quick Bid
+                      </Button>
+                    </div>
                   </div>
                   <Button asChild variant="ghost-green" className="w-full h-11">
                     <Link to={`/auctions/${auction.id}`}>
@@ -253,6 +279,20 @@ const Home = () => {
           </Card>
         </div>
       </section>
+
+      {/* Quick Bid Modal */}
+      {quickBidModalOpen && selectedAuction && (
+        <QuickBidModal
+          isOpen={quickBidModalOpen}
+          onClose={() => {
+            setQuickBidModalOpen(false);
+            setSelectedAuction(null);
+          }}
+          lotId={selectedAuction.id}
+          lotTitle={selectedAuction.title}
+          currentBid={selectedAuction.currentBid}
+        />
+      )}
     </div>
   );
 };
