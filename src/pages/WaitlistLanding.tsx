@@ -81,7 +81,7 @@ const WaitlistLanding = () => {
             </div>
           </div>
           <Button asChild variant="outline" size="sm">
-            <Link to="/">View Auctions</Link>
+            <Link to="/home">View Auctions</Link>
           </Button>
         </div>
       </header>
