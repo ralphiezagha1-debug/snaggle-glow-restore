@@ -246,7 +246,7 @@ const Home = () => {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="text-lg px-8 border-white/20 text-white hover:bg-white/10 backdrop-blur-sm">
+              <Button asChild variant="outline" size="lg" className="text-lg px-8">
                 <Link to="/waitlist">Join Our Waitlist</Link>
               </Button>
             </CardContent>
