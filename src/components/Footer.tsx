@@ -79,7 +79,7 @@ const Footer = () => {
         <div className="border-t border-white/10 mt-12 pt-8">
           <div className="flex justify-center items-center">
             <p className="text-sm text-white/50">
-              Made with ❤️ for auction enthusiasts
+              © {new Date().getFullYear()} Snaggle. All rights reserved.
             </p>
           </div>
         </div>
