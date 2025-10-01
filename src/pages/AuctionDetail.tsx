@@ -249,10 +249,10 @@ const AuctionDetail = () => {
                       <Button
                         variant="primary"
                         onClick={handleQuickBid}
-                        className="flex-1"
+                        className="flex-1 text-muted-foreground hover:text-foreground"
                       >
                         <Gavel className="mr-2 h-4 w-4" />
-                        Quick Bid
+                        Bid
                       </Button>
                     </div>
                   </div>
