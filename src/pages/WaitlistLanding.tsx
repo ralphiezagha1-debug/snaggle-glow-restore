@@ -3,7 +3,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Copy, Check, ArrowRight, Trophy, Users, Zap, Gift, Crown, Award } from "lucide-react";
+import { Copy, Check, ArrowRight, Trophy, Users, Zap, Gift, Crown, Award, Hammer } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 const WaitlistLanding = () => {
@@ -132,8 +132,8 @@ const WaitlistLanding = () => {
       <header className="container mx-auto px-6 py-6">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center gap-3">
-            <div className="text-3xl font-black text-[#00FF80] logo-glow">
-              ⚡ Snaggle
+            <div className="flex items-center gap-2 text-3xl font-black text-[#00FF80] logo-glow">
+              <Hammer className="h-8 w-8" /> Snaggle
             </div>
             <div className="hidden sm:block text-sm text-white/60">
               The Penny Auction Reinvented
