@@ -135,7 +135,7 @@ const AuctionDetail = () => {
             {/* Description */}
             <Card className="bg-gradient-card border-card-border">
               <CardHeader>
-                <CardTitle>Description</CardTitle>
+                <CardTitle className="text-white/80">Description</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground leading-relaxed">
@@ -147,13 +147,13 @@ const AuctionDetail = () => {
             {/* Item Details */}
             <Card className="bg-gradient-card border-card-border">
               <CardHeader>
-                <CardTitle>Item Details</CardTitle>
+                <CardTitle className="text-white/80">Item Details</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {Object.entries(auction.details).map(([key, value]) => (
                     <div key={key} className="flex justify-between">
-                      <span className="font-medium capitalize">
+                      <span className="font-medium capitalize text-white/70">
                         {key.replace(/([A-Z])/g, ' $1').trim()}:
                       </span>
                       <span className="text-muted-foreground">{value}</span>
@@ -211,7 +211,7 @@ const AuctionDetail = () => {
                     <span className="text-sm text-muted-foreground">{auction.watchers}</span>
                   </div>
                 </div>
-                <CardTitle className="text-2xl">{auction.title}</CardTitle>
+                <CardTitle className="text-2xl text-white/90">{auction.title}</CardTitle>
                 <div className="flex items-center space-x-2">
                   <Badge variant="outline">{auction.category}</Badge>
                   <Badge variant="outline">{auction.condition}</Badge>
@@ -263,7 +263,7 @@ const AuctionDetail = () => {
             {/* Seller Info */}
             <Card className="bg-gradient-card border-card-border">
               <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
+                <CardTitle className="flex items-center space-x-2 text-white/80">
                   <User className="h-5 w-5" />
                   <span>Seller Information</span>
                 </CardTitle>
@@ -271,7 +271,7 @@ const AuctionDetail = () => {
               <CardContent>
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="font-medium">{auction.seller.name}</span>
+                    <span className="font-medium text-white/80">{auction.seller.name}</span>
                     <Badge variant="secondary" className="flex items-center space-x-1">
                       <Shield className="h-3 w-3" />
                       <span>Verified</span>
@@ -279,11 +279,11 @@ const AuctionDetail = () => {
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Rating:</span>
-                    <span className="font-medium">{auction.seller.rating}/5.0</span>
+                    <span className="font-medium text-white/80">{auction.seller.rating}/5.0</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Total Sales:</span>
-                    <span className="font-medium">{auction.seller.salesCount}</span>
+                    <span className="font-medium text-white/80">{auction.seller.salesCount}</span>
                   </div>
                   <Button 
                     asChild
@@ -303,7 +303,7 @@ const AuctionDetail = () => {
             {/* Auction Info */}
             <Card className="bg-gradient-card border-card-border">
               <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
+                <CardTitle className="flex items-center space-x-2 text-white/80">
                   <Info className="h-5 w-5" />
                   <span>Auction Terms</span>
                 </CardTitle>
