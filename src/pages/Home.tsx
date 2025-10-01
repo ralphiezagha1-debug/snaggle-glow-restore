@@ -228,15 +228,15 @@ const Home = () => {
             {features.map((feature) => {
               const Icon = feature.icon;
               return (
-                <Card key={feature.title} className="text-center border-card-border bg-card/50">
+                <Card key={feature.title} className="text-center bg-transparent border-0">
                   <CardHeader>
                     <div className="mx-auto mb-4 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
                       <Icon className="h-6 w-6 text-primary" />
                     </div>
-                    <CardTitle className="text-xl">{feature.title}</CardTitle>
+                    <CardTitle className="text-xl text-white/90">{feature.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-muted-foreground">{feature.description}</p>
+                    <p className="text-white/60">{feature.description}</p>
                   </CardContent>
                 </Card>
               );
@@ -248,7 +248,7 @@ const Home = () => {
       {/* CTA Section */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <Card className="bg-white/[0.03] border-white/5 text-center p-12">
+          <Card className="bg-transparent border-0 text-center p-12">
             <CardHeader>
               <div className="flex justify-center mb-6">
                 <Trophy className="h-16 w-16 text-[#00FF85]" />
