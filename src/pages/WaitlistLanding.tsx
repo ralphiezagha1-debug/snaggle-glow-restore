@@ -470,7 +470,7 @@ const WaitlistLanding = () => {
       {/* Footer */}
       <footer className="container mx-auto px-6 py-8 mt-12 border-t border-white/10">
         <div className="text-center text-white/50 text-sm">
-          © {new Date().getFullYear()} Snaggle. All rights reserved.
+          Made with ❤️ for auction enthusiasts
         </div>
       </footer>
 
