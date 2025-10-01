@@ -401,7 +401,7 @@ const WaitlistLanding = () => {
             </p>
           </div>
 
-          <Card className="bg-gradient-to-br from-neutral-900/95 to-neutral-800/95 border border-white/10 overflow-hidden">
+          <Card className="bg-gradient-to-br from-neutral-900/40 to-neutral-800/30 backdrop-blur-sm border border-white/10 overflow-hidden">
             <CardContent className="p-6">
               <div className="overflow-x-auto">
                 <table className="w-full">
