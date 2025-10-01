@@ -12,7 +12,7 @@ const Navbar = () => {
   const isActive = (path: string) => location.pathname === path;
 
   const navLinks = [
-    { href: "/", label: "Home" },
+    { href: "/home", label: "Home" },
     { href: "/live", label: "Live" },
     { href: "/auctions", label: "Auctions" },
     { href: "/categories", label: "Categories" },
