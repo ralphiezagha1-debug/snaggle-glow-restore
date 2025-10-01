@@ -1,18 +1,33 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
-import { Copy, Check } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Copy, Check, ArrowRight, Trophy, Users, Zap, Gift, Crown, Award } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 const WaitlistLanding = () => {
+  const [searchParams] = useSearchParams();
   const [email, setEmail] = useState("");
   const [hasJoined, setHasJoined] = useState(false);
   const [position, setPosition] = useState(0);
   const [copied, setCopied] = useState(false);
+  const [referralCount, setReferralCount] = useState(0);
 
   const referralLink = `https://snaggle.fun/ref/${Math.random().toString(36).substring(7)}`;
+
+  // Check localStorage and URL params on mount
+  useEffect(() => {
+    const joined = localStorage.getItem("snaggle_waitlist_joined");
+    const storedPosition = localStorage.getItem("snaggle_waitlist_position");
+    const storedReferrals = localStorage.getItem("snaggle_referral_count");
+    
+    if (joined === "1" || searchParams.get("joined") === "1") {
+      setHasJoined(true);
+      if (storedPosition) setPosition(parseInt(storedPosition));
+      if (storedReferrals) setReferralCount(parseInt(storedReferrals));
+    }
+  }, [searchParams]);
 
   const handleJoinWaitlist = (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,10 +45,13 @@ const WaitlistLanding = () => {
     setPosition(mockPosition);
     setHasJoined(true);
     
-    toast({
-      title: "Welcome to Snaggle!",
-      description: `You're #${mockPosition} in line`,
-    });
+    // Store in localStorage
+    localStorage.setItem("snaggle_waitlist_joined", "1");
+    localStorage.setItem("snaggle_waitlist_position", mockPosition.toString());
+    localStorage.setItem("snaggle_referral_count", "0");
+    
+    // Reload with query param
+    window.location.href = "/?joined=1";
   };
 
   const handleCopyLink = () => {
@@ -59,28 +77,69 @@ const WaitlistLanding = () => {
     window.open(shareUrls[platform], "_blank", "noopener,noreferrer");
   };
 
+  const rewardTiers = [
+    { 
+      referrals: 1, 
+      icon: Users, 
+      reward: "+5 credits for you",
+      subReward: "+3 credits for friend",
+      color: "text-emerald-400"
+    },
+    { 
+      referrals: 3, 
+      icon: Zap, 
+      reward: "+15 credits",
+      subReward: "Total bonus",
+      color: "text-emerald-400"
+    },
+    { 
+      referrals: 5, 
+      icon: Award, 
+      reward: "+25 credits",
+      subReward: "Early Access badge",
+      color: "text-emerald-300"
+    },
+    { 
+      referrals: 10, 
+      icon: Crown, 
+      reward: "Founding Bidder frame",
+      subReward: "Guaranteed Premiere Auction slot",
+      color: "text-yellow-400"
+    },
+    { 
+      referrals: 25, 
+      icon: Trophy, 
+      reward: "$25 win reimbursement",
+      subReward: "VIP Discord role",
+      color: "text-yellow-300"
+    },
+  ];
+
   const mockLeaderboard = [
     { rank: 1, name: "Alex M.", referrals: 47 },
     { rank: 2, name: "Sarah K.", referrals: 38 },
     { rank: 3, name: "Mike D.", referrals: 32 },
     { rank: 4, name: "Emma L.", referrals: 28 },
     { rank: 5, name: "Chris P.", referrals: 24 },
+    { rank: 6, name: "Jordan T.", referrals: 21 },
+    { rank: 7, name: "Taylor R.", referrals: 19 },
+    { rank: 8, name: "Morgan S.", referrals: 16 },
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gradient-to-b from-background via-neutral-950 to-background">
       {/* Header */}
       <header className="container mx-auto px-6 py-6">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="text-3xl font-black text-[#00FF80] hero-glow">
+          <Link to="/" className="flex items-center gap-3">
+            <div className="text-3xl font-black text-snaggle-green logo-glow">
               ⚡ Snaggle
             </div>
-            <div className="hidden sm:block text-sm text-white/60">
+            <div className="hidden sm:block text-sm text-muted-foreground">
               The Penny Auction Reinvented
             </div>
-          </div>
-          <Button asChild variant="outline" size="sm">
+          </Link>
+          <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
             <Link to="/home">View Auctions</Link>
           </Button>
         </div>
@@ -89,71 +148,98 @@ const WaitlistLanding = () => {
       {/* Hero Section */}
       <section className="container mx-auto px-6 py-12 md:py-20">
         <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 text-[#00FF80] hero-glow animate-fade-in">
+          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 snag-headline animate-fade-in">
             Snaggle — The Penny Auction Reinvented
           </h1>
-          <p className="text-xl md:text-2xl text-white/80 mb-12 animate-fade-in">
+          <p className="text-xl md:text-2xl text-muted-foreground mb-8 animate-fade-in">
             Join the waitlist and be first to win.
           </p>
 
           {!hasJoined ? (
-            <form onSubmit={handleJoinWaitlist} className="max-w-xl mx-auto space-y-4 animate-scale-in">
-              <div className="flex flex-col sm:flex-row gap-3">
-                <Input
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="flex-1 h-14 bg-neutral-900 border-white/20 text-white placeholder:text-white/40 text-lg"
-                />
-                <Button
-                  type="submit"
-                  size="lg"
-                  variant="outline"
-                  className="h-14 px-8 text-lg font-semibold animate-pulse hover:animate-none shadow-[0_0_20px_rgba(60,255,107,0.4)]"
-                >
-                  Join Waitlist
-                </Button>
-              </div>
-              <p className="text-sm text-white/50">
-                No spam. Early access for the first 1,000 members.
-              </p>
-            </form>
+            <>
+              <form onSubmit={handleJoinWaitlist} className="max-w-xl mx-auto space-y-6 animate-scale-in mb-8">
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Input
+                    type="email"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="flex-1 h-14 bg-card border-snaggle-green/20 text-foreground placeholder:text-muted-foreground text-lg focus-visible:ring-snaggle-green"
+                  />
+                  <Button
+                    type="submit"
+                    size="lg"
+                    className="h-14 px-8 text-lg font-bold bg-snaggle-green hover:bg-snaggle-green/90 text-background cta-pulse shadow-glow"
+                  >
+                    Join Waitlist
+                  </Button>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  No spam. Early access for the first 1,000 members.
+                </p>
+              </form>
+              
+              {/* Primary CTA - Default State */}
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="text-base font-semibold border-snaggle-green/30 hover:bg-snaggle-green/10"
+              >
+                <Link to="/home">
+                  Explore Auctions <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </>
           ) : (
             <div className="max-w-2xl mx-auto space-y-8 animate-scale-in">
               {/* Position Card */}
-              <Card className="bg-gradient-to-br from-neutral-900/95 to-neutral-800/95 border border-emerald-400/30 shadow-[0_0_30px_rgba(60,255,107,0.3)]">
+              <Card className="bg-gradient-to-br from-card via-card to-snaggle-green/5 border-snaggle-green/30 shadow-glow">
                 <CardContent className="p-8 text-center">
-                  <div className="text-6xl font-black text-[#00FF80] mb-2 hero-glow">
+                  <div className="text-6xl font-black text-snaggle-green mb-2 hero-glow">
                     #{position}
                   </div>
-                  <p className="text-xl text-white/80 mb-6">
+                  <p className="text-xl text-foreground mb-2">
                     You're in line!
                   </p>
-                  <div className="neon-divider my-6" />
-                  <p className="text-lg font-semibold text-white mb-4">
-                    Invite friends to move up!
+                  <p className="text-sm text-muted-foreground mb-6">
+                    {referralCount} referral{referralCount !== 1 ? 's' : ''} so far
                   </p>
+                  <Button
+                    asChild
+                    size="lg"
+                    className="bg-snaggle-green hover:bg-snaggle-green/90 text-background font-bold shadow-glow"
+                  >
+                    <Link to="/home">
+                      Go to Auctions <ArrowRight className="ml-2 h-5 w-5" />
+                    </Link>
+                  </Button>
                 </CardContent>
               </Card>
 
-              {/* Referral Section */}
-              <Card className="bg-gradient-to-br from-neutral-900/95 to-neutral-800/95 border border-white/10">
-                <CardContent className="p-6 space-y-4">
+              {/* Referral Dashboard */}
+              <Card className="bg-gradient-to-br from-card to-card border-border">
+                <CardHeader>
+                  <CardTitle className="text-center text-snaggle-green flex items-center justify-center gap-2">
+                    <Gift className="h-6 w-6" />
+                    Invite friends to move up and earn rewards
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
                   <div className="flex gap-2">
                     <Input
                       value={referralLink}
                       readOnly
-                      className="flex-1 bg-neutral-800 border-white/20 text-white/60"
+                      className="flex-1 bg-background border-border text-muted-foreground"
                     />
                     <Button
                       onClick={handleCopyLink}
                       variant="outline"
                       size="icon"
-                      className="shrink-0"
+                      className="shrink-0 border-snaggle-green/30 hover:bg-snaggle-green/10"
                     >
                       {copied ? (
-                        <Check className="h-4 w-4 text-[#00FF80]" />
+                        <Check className="h-4 w-4 text-snaggle-green" />
                       ) : (
                         <Copy className="h-4 w-4" />
                       )}
@@ -162,7 +248,7 @@ const WaitlistLanding = () => {
 
                   {/* Share Buttons */}
                   <div className="space-y-2">
-                    <p className="text-sm text-white/60 text-center">Share on:</p>
+                    <p className="text-sm text-muted-foreground text-center">Share on:</p>
                     <div className="flex justify-center gap-3">
                       <Button
                         onClick={() => handleShare("twitter")}
@@ -206,55 +292,174 @@ const WaitlistLanding = () => {
         </div>
       </section>
 
-      {/* Rewards Section */}
+      {/* Reward Tiers Section */}
+      <section className="container mx-auto px-6 py-12 md:py-20 bg-gradient-to-b from-transparent via-snaggle-green/5 to-transparent">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
+              Referral Reward Tiers
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Unlock exclusive rewards as you invite friends
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {rewardTiers.map((tier, index) => {
+              const IconComponent = tier.icon;
+              const isUnlocked = referralCount >= tier.referrals;
+              
+              return (
+                <Card
+                  key={tier.referrals}
+                  className={`relative overflow-hidden transition-all duration-300 hover:scale-105 ${
+                    isUnlocked
+                      ? "bg-gradient-to-br from-snaggle-green/20 to-snaggle-green/5 border-snaggle-green/50 shadow-glow"
+                      : "bg-card border-border hover:border-snaggle-green/30"
+                  }`}
+                >
+                  <CardContent className="p-6">
+                    <div className="flex items-start justify-between mb-4">
+                      <div className={`p-3 rounded-lg ${isUnlocked ? "bg-snaggle-green/20" : "bg-muted"}`}>
+                        <IconComponent className={`h-6 w-6 ${isUnlocked ? tier.color : "text-muted-foreground"}`} />
+                      </div>
+                      <span className={`text-2xl font-bold ${isUnlocked ? "text-snaggle-green" : "text-muted-foreground"}`}>
+                        {tier.referrals}
+                      </span>
+                    </div>
+                    <h3 className={`text-lg font-bold mb-2 ${isUnlocked ? "text-snaggle-green" : "text-foreground"}`}>
+                      {tier.reward}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      {tier.subReward}
+                    </p>
+                    {isUnlocked && (
+                      <div className="mt-4 flex items-center gap-2 text-sm font-semibold text-snaggle-green">
+                        <Check className="h-4 w-4" />
+                        Unlocked!
+                      </div>
+                    )}
+                  </CardContent>
+                  {index === rewardTiers.length - 1 && (
+                    <div className="absolute top-0 right-0 bg-yellow-500 text-background text-xs font-bold px-3 py-1 rounded-bl-lg">
+                      GRAND PRIZE
+                    </div>
+                  )}
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Monthly Winners' Giveaway Section */}
       <section className="container mx-auto px-6 py-12 md:py-20">
         <div className="max-w-4xl mx-auto">
+          <Card className="bg-gradient-to-br from-yellow-500/10 via-card to-snaggle-green/10 border-yellow-500/30 shadow-glowSoft animate-pulse hover:animate-none">
+            <CardContent className="p-8 md:p-12 text-center">
+              <div className="inline-flex items-center justify-center p-4 bg-yellow-500/20 rounded-full mb-6">
+                <Trophy className="h-12 w-12 text-yellow-400" />
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                Monthly Winners' Giveaway
+              </h2>
+              <p className="text-lg text-muted-foreground mb-8">
+                Every auction win = 1 entry. The more you win, the better your odds. Prize changes monthly!
+              </p>
+              
+              {/* Placeholder Prize Box */}
+              <div className="relative bg-gradient-to-br from-background to-muted rounded-xl border-2 border-dashed border-yellow-500/30 p-12 mb-6">
+                <div className="absolute top-4 right-4 bg-yellow-500 text-background text-xs font-bold px-3 py-1 rounded-full">
+                  THIS MONTH
+                </div>
+                <Gift className="h-16 w-16 text-yellow-400 mx-auto mb-4" />
+                <p className="text-xl font-semibold text-foreground mb-2">
+                  Featured Prize Coming Soon
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  High-value items updated monthly
+                </p>
+              </div>
+              
+              <p className="text-sm text-muted-foreground">
+                Winners announced live at the end of each month
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Leaderboard Section */}
+      <section className="container mx-auto px-6 py-12 md:py-20">
+        <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Referral Rewards
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Top Referrers Leaderboard
             </h2>
-            <p className="text-xl text-[#00FF80] font-semibold">
+            <p className="text-lg text-snaggle-green font-semibold">
               Top 100 referrers get early access
             </p>
           </div>
 
-          {/* Leaderboard */}
-          <Card className="bg-gradient-to-br from-neutral-900/95 to-neutral-800/95 border border-white/10">
+          <Card className="bg-gradient-to-br from-card to-card border-border overflow-hidden">
             <CardContent className="p-6">
-              <div className="space-y-3">
-                <div className="grid grid-cols-3 gap-4 pb-3 border-b border-white/10 text-sm font-semibold text-white/60">
-                  <div>Rank</div>
-                  <div>Name</div>
-                  <div className="text-right">Referrals</div>
-                </div>
-                {mockLeaderboard.map((entry) => (
-                  <div
-                    key={entry.rank}
-                    className="grid grid-cols-3 gap-4 py-3 border-b border-white/5 hover:bg-white/5 transition-colors"
-                  >
-                    <div className="flex items-center gap-2">
-                      <span
-                        className={`text-lg font-bold ${
-                          entry.rank === 1
-                            ? "text-[#FFD700]"
-                            : entry.rank === 2
-                            ? "text-[#C0C0C0]"
-                            : entry.rank === 3
-                            ? "text-[#CD7F32]"
-                            : "text-white/60"
-                        }`}
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b border-border">
+                      <th className="text-left py-4 px-4 text-sm font-semibold text-muted-foreground">Rank</th>
+                      <th className="text-left py-4 px-4 text-sm font-semibold text-muted-foreground">Name</th>
+                      <th className="text-right py-4 px-4 text-sm font-semibold text-muted-foreground">Referrals</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {mockLeaderboard.map((entry) => (
+                      <tr
+                        key={entry.rank}
+                        className="border-b border-border/50 hover:bg-muted/50 transition-colors"
                       >
-                        #{entry.rank}
-                      </span>
-                    </div>
-                    <div className="text-white font-medium">{entry.name}</div>
-                    <div className="text-right text-[#00FF80] font-semibold">
-                      {entry.referrals}
-                    </div>
-                  </div>
-                ))}
+                        <td className="py-4 px-4">
+                          <div className="flex items-center gap-2">
+                            {entry.rank <= 3 && (
+                              <Trophy
+                                className={`h-5 w-5 ${
+                                  entry.rank === 1
+                                    ? "text-yellow-400"
+                                    : entry.rank === 2
+                                    ? "text-gray-400"
+                                    : "text-amber-600"
+                                }`}
+                              />
+                            )}
+                            <span
+                              className={`text-lg font-bold ${
+                                entry.rank === 1
+                                  ? "text-yellow-400"
+                                  : entry.rank === 2
+                                  ? "text-gray-400"
+                                  : entry.rank === 3
+                                  ? "text-amber-600"
+                                  : "text-muted-foreground"
+                              }`}
+                            >
+                              #{entry.rank}
+                            </span>
+                          </div>
+                        </td>
+                        <td className="py-4 px-4">
+                          <span className="text-foreground font-medium">{entry.name}</span>
+                        </td>
+                        <td className="py-4 px-4 text-right">
+                          <span className="text-snaggle-green font-semibold text-lg">
+                            {entry.referrals}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
-              <div className="mt-6 text-center text-sm text-white/50">
+              <div className="mt-6 text-center text-sm text-muted-foreground">
                 Leaderboard updates in real-time
               </div>
             </CardContent>
@@ -263,11 +468,26 @@ const WaitlistLanding = () => {
       </section>
 
       {/* Footer */}
-      <footer className="container mx-auto px-6 py-8 mt-12 border-t border-white/10">
-        <div className="text-center text-white/50 text-sm">
+      <footer className="container mx-auto px-6 py-8 mt-12 border-t border-border">
+        <div className="text-center text-muted-foreground text-sm">
           © {new Date().getFullYear()} Snaggle. All rights reserved.
         </div>
       </footer>
+
+      {/* Sticky Mobile CTA */}
+      {!hasJoined && (
+        <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/95 backdrop-blur-sm border-t border-border md:hidden z-50">
+          <Button
+            asChild
+            size="lg"
+            className="w-full bg-snaggle-green hover:bg-snaggle-green/90 text-background font-bold shadow-glow"
+          >
+            <Link to="/home">
+              Explore Auctions <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
