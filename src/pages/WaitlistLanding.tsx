@@ -127,7 +127,7 @@ const WaitlistLanding = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-neutral-950">
+    <div className="min-h-screen bg-snag-gradient">
       {/* Header */}
       <header className="container mx-auto px-6 py-6">
         <div className="flex items-center justify-between">
