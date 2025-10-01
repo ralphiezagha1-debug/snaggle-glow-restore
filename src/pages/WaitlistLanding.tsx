@@ -127,19 +127,19 @@ const WaitlistLanding = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background via-neutral-950 to-background">
+    <div className="min-h-screen bg-neutral-950">
       {/* Header */}
       <header className="container mx-auto px-6 py-6">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center gap-3">
-            <div className="text-3xl font-black text-snaggle-green logo-glow">
+            <div className="text-3xl font-black text-[#00FF80] logo-glow">
               ⚡ Snaggle
             </div>
-            <div className="hidden sm:block text-sm text-muted-foreground">
+            <div className="hidden sm:block text-sm text-white/60">
               The Penny Auction Reinvented
             </div>
           </Link>
-          <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
+          <Button asChild variant="outline" size="sm" className="hidden sm:inline-flex border-white/20 text-white hover:bg-white/10">
             <Link to="/home">View Auctions</Link>
           </Button>
         </div>
@@ -148,10 +148,10 @@ const WaitlistLanding = () => {
       {/* Hero Section */}
       <section className="container mx-auto px-6 py-12 md:py-20">
         <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 snag-headline animate-fade-in">
+          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 text-[#00FF80] hero-glow animate-fade-in">
             Snaggle — The Penny Auction Reinvented
           </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 animate-fade-in">
+          <p className="text-xl md:text-2xl text-white/80 mb-8 animate-fade-in">
             Join the waitlist and be first to win.
           </p>
 
@@ -164,17 +164,17 @@ const WaitlistLanding = () => {
                     placeholder="Enter your email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="flex-1 h-14 bg-card border-snaggle-green/20 text-foreground placeholder:text-muted-foreground text-lg focus-visible:ring-snaggle-green"
+                    className="flex-1 h-14 bg-neutral-900 border-white/20 text-white placeholder:text-white/40 text-lg"
                   />
                   <Button
                     type="submit"
                     size="lg"
-                    className="h-14 px-8 text-lg font-bold bg-snaggle-green hover:bg-snaggle-green/90 text-background cta-pulse shadow-glow"
+                    className="h-14 px-8 text-lg font-bold bg-[#00FF80] hover:bg-[#00FF80]/90 text-black cta-pulse shadow-[0_0_20px_rgba(0,255,128,0.4)]"
                   >
                     Join Waitlist
                   </Button>
                 </div>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-white/50">
                   No spam. Early access for the first 1,000 members.
                 </p>
               </form>
@@ -184,7 +184,7 @@ const WaitlistLanding = () => {
                 asChild
                 size="lg"
                 variant="outline"
-                className="text-base font-semibold border-snaggle-green/30 hover:bg-snaggle-green/10"
+                className="text-base font-semibold border-[#00FF80]/30 hover:bg-[#00FF80]/10 text-white"
               >
                 <Link to="/home">
                   Explore Auctions <ArrowRight className="ml-2 h-5 w-5" />
@@ -194,21 +194,21 @@ const WaitlistLanding = () => {
           ) : (
             <div className="max-w-2xl mx-auto space-y-8 animate-scale-in">
               {/* Position Card */}
-              <Card className="bg-gradient-to-br from-card via-card to-snaggle-green/5 border-snaggle-green/30 shadow-glow">
+              <Card className="bg-gradient-to-br from-neutral-900/95 to-neutral-800/95 border border-[#00FF80]/30 shadow-[0_0_30px_rgba(0,255,128,0.3)]">
                 <CardContent className="p-8 text-center">
-                  <div className="text-6xl font-black text-snaggle-green mb-2 hero-glow">
+                  <div className="text-6xl font-black text-[#00FF80] mb-2 hero-glow">
                     #{position}
                   </div>
-                  <p className="text-xl text-foreground mb-2">
+                  <p className="text-xl text-white/80 mb-2">
                     You're in line!
                   </p>
-                  <p className="text-sm text-muted-foreground mb-6">
+                  <p className="text-sm text-white/60 mb-6">
                     {referralCount} referral{referralCount !== 1 ? 's' : ''} so far
                   </p>
                   <Button
                     asChild
                     size="lg"
-                    className="bg-snaggle-green hover:bg-snaggle-green/90 text-background font-bold shadow-glow"
+                    className="bg-[#00FF80] hover:bg-[#00FF80]/90 text-black font-bold shadow-[0_0_20px_rgba(0,255,128,0.4)]"
                   >
                     <Link to="/home">
                       Go to Auctions <ArrowRight className="ml-2 h-5 w-5" />
@@ -218,9 +218,9 @@ const WaitlistLanding = () => {
               </Card>
 
               {/* Referral Dashboard */}
-              <Card className="bg-gradient-to-br from-card to-card border-border">
+              <Card className="bg-gradient-to-br from-neutral-900/95 to-neutral-800/95 border border-white/10">
                 <CardHeader>
-                  <CardTitle className="text-center text-snaggle-green flex items-center justify-center gap-2">
+                  <CardTitle className="text-center text-[#00FF80] flex items-center justify-center gap-2">
                     <Gift className="h-6 w-6" />
                     Invite friends to move up and earn rewards
                   </CardTitle>
@@ -230,16 +230,16 @@ const WaitlistLanding = () => {
                     <Input
                       value={referralLink}
                       readOnly
-                      className="flex-1 bg-background border-border text-muted-foreground"
+                      className="flex-1 bg-neutral-800 border-white/20 text-white/60"
                     />
                     <Button
                       onClick={handleCopyLink}
                       variant="outline"
                       size="icon"
-                      className="shrink-0 border-snaggle-green/30 hover:bg-snaggle-green/10"
+                      className="shrink-0 border-[#00FF80]/30 hover:bg-[#00FF80]/10"
                     >
                       {copied ? (
-                        <Check className="h-4 w-4 text-snaggle-green" />
+                        <Check className="h-4 w-4 text-[#00FF80]" />
                       ) : (
                         <Copy className="h-4 w-4" />
                       )}
@@ -248,7 +248,7 @@ const WaitlistLanding = () => {
 
                   {/* Share Buttons */}
                   <div className="space-y-2">
-                    <p className="text-sm text-muted-foreground text-center">Share on:</p>
+                    <p className="text-sm text-white/60 text-center">Share on:</p>
                     <div className="flex justify-center gap-3">
                       <Button
                         onClick={() => handleShare("twitter")}
@@ -293,13 +293,13 @@ const WaitlistLanding = () => {
       </section>
 
       {/* Reward Tiers Section */}
-      <section className="container mx-auto px-6 py-12 md:py-20 bg-gradient-to-b from-transparent via-snaggle-green/5 to-transparent">
+      <section className="container mx-auto px-6 py-12 md:py-20">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
               Referral Reward Tiers
             </h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-white/70">
               Unlock exclusive rewards as you invite friends
             </p>
           </div>
@@ -314,34 +314,34 @@ const WaitlistLanding = () => {
                   key={tier.referrals}
                   className={`relative overflow-hidden transition-all duration-300 hover:scale-105 ${
                     isUnlocked
-                      ? "bg-gradient-to-br from-snaggle-green/20 to-snaggle-green/5 border-snaggle-green/50 shadow-glow"
-                      : "bg-card border-border hover:border-snaggle-green/30"
+                      ? "bg-gradient-to-br from-[#00FF80]/20 to-[#00FF80]/5 border-[#00FF80]/50 shadow-[0_0_20px_rgba(0,255,128,0.3)]"
+                      : "bg-neutral-900/80 border-white/10 hover:border-[#00FF80]/30"
                   }`}
                 >
                   <CardContent className="p-6">
                     <div className="flex items-start justify-between mb-4">
-                      <div className={`p-3 rounded-lg ${isUnlocked ? "bg-snaggle-green/20" : "bg-muted"}`}>
-                        <IconComponent className={`h-6 w-6 ${isUnlocked ? tier.color : "text-muted-foreground"}`} />
+                      <div className={`p-3 rounded-lg ${isUnlocked ? "bg-[#00FF80]/20" : "bg-neutral-800"}`}>
+                        <IconComponent className={`h-6 w-6 ${isUnlocked ? tier.color : "text-white/40"}`} />
                       </div>
-                      <span className={`text-2xl font-bold ${isUnlocked ? "text-snaggle-green" : "text-muted-foreground"}`}>
+                      <span className={`text-2xl font-bold ${isUnlocked ? "text-[#00FF80]" : "text-white/40"}`}>
                         {tier.referrals}
                       </span>
                     </div>
-                    <h3 className={`text-lg font-bold mb-2 ${isUnlocked ? "text-snaggle-green" : "text-foreground"}`}>
+                    <h3 className={`text-lg font-bold mb-2 ${isUnlocked ? "text-[#00FF80]" : "text-white"}`}>
                       {tier.reward}
                     </h3>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-white/60">
                       {tier.subReward}
                     </p>
                     {isUnlocked && (
-                      <div className="mt-4 flex items-center gap-2 text-sm font-semibold text-snaggle-green">
+                      <div className="mt-4 flex items-center gap-2 text-sm font-semibold text-[#00FF80]">
                         <Check className="h-4 w-4" />
                         Unlocked!
                       </div>
                     )}
                   </CardContent>
                   {index === rewardTiers.length - 1 && (
-                    <div className="absolute top-0 right-0 bg-yellow-500 text-background text-xs font-bold px-3 py-1 rounded-bl-lg">
+                    <div className="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-3 py-1 rounded-bl-lg">
                       GRAND PRIZE
                     </div>
                   )}
@@ -355,33 +355,33 @@ const WaitlistLanding = () => {
       {/* Monthly Winners' Giveaway Section */}
       <section className="container mx-auto px-6 py-12 md:py-20">
         <div className="max-w-4xl mx-auto">
-          <Card className="bg-gradient-to-br from-yellow-500/10 via-card to-snaggle-green/10 border-yellow-500/30 shadow-glowSoft animate-pulse hover:animate-none">
+          <Card className="bg-gradient-to-br from-yellow-500/10 via-neutral-900 to-[#00FF80]/10 border-yellow-500/30 shadow-[0_0_30px_rgba(234,179,8,0.2)]">
             <CardContent className="p-8 md:p-12 text-center">
               <div className="inline-flex items-center justify-center p-4 bg-yellow-500/20 rounded-full mb-6">
                 <Trophy className="h-12 w-12 text-yellow-400" />
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                 Monthly Winners' Giveaway
               </h2>
-              <p className="text-lg text-muted-foreground mb-8">
+              <p className="text-lg text-white/70 mb-8">
                 Every auction win = 1 entry. The more you win, the better your odds. Prize changes monthly!
               </p>
               
               {/* Placeholder Prize Box */}
-              <div className="relative bg-gradient-to-br from-background to-muted rounded-xl border-2 border-dashed border-yellow-500/30 p-12 mb-6">
-                <div className="absolute top-4 right-4 bg-yellow-500 text-background text-xs font-bold px-3 py-1 rounded-full">
+              <div className="relative bg-gradient-to-br from-neutral-950 to-neutral-800 rounded-xl border-2 border-dashed border-yellow-500/30 p-12 mb-6">
+                <div className="absolute top-4 right-4 bg-yellow-500 text-black text-xs font-bold px-3 py-1 rounded-full">
                   THIS MONTH
                 </div>
                 <Gift className="h-16 w-16 text-yellow-400 mx-auto mb-4" />
-                <p className="text-xl font-semibold text-foreground mb-2">
+                <p className="text-xl font-semibold text-white mb-2">
                   Featured Prize Coming Soon
                 </p>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-white/60">
                   High-value items updated monthly
                 </p>
               </div>
               
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-white/60">
                 Winners announced live at the end of each month
               </p>
             </CardContent>
@@ -393,30 +393,30 @@ const WaitlistLanding = () => {
       <section className="container mx-auto px-6 py-12 md:py-20">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Top Referrers Leaderboard
             </h2>
-            <p className="text-lg text-snaggle-green font-semibold">
+            <p className="text-lg text-[#00FF80] font-semibold">
               Top 100 referrers get early access
             </p>
           </div>
 
-          <Card className="bg-gradient-to-br from-card to-card border-border overflow-hidden">
+          <Card className="bg-gradient-to-br from-neutral-900/95 to-neutral-800/95 border border-white/10 overflow-hidden">
             <CardContent className="p-6">
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b border-border">
-                      <th className="text-left py-4 px-4 text-sm font-semibold text-muted-foreground">Rank</th>
-                      <th className="text-left py-4 px-4 text-sm font-semibold text-muted-foreground">Name</th>
-                      <th className="text-right py-4 px-4 text-sm font-semibold text-muted-foreground">Referrals</th>
+                    <tr className="border-b border-white/10">
+                      <th className="text-left py-4 px-4 text-sm font-semibold text-white/60">Rank</th>
+                      <th className="text-left py-4 px-4 text-sm font-semibold text-white/60">Name</th>
+                      <th className="text-right py-4 px-4 text-sm font-semibold text-white/60">Referrals</th>
                     </tr>
                   </thead>
                   <tbody>
                     {mockLeaderboard.map((entry) => (
                       <tr
                         key={entry.rank}
-                        className="border-b border-border/50 hover:bg-muted/50 transition-colors"
+                        className="border-b border-white/5 hover:bg-white/5 transition-colors"
                       >
                         <td className="py-4 px-4">
                           <div className="flex items-center gap-2">
@@ -439,7 +439,7 @@ const WaitlistLanding = () => {
                                   ? "text-gray-400"
                                   : entry.rank === 3
                                   ? "text-amber-600"
-                                  : "text-muted-foreground"
+                                  : "text-white/60"
                               }`}
                             >
                               #{entry.rank}
@@ -447,10 +447,10 @@ const WaitlistLanding = () => {
                           </div>
                         </td>
                         <td className="py-4 px-4">
-                          <span className="text-foreground font-medium">{entry.name}</span>
+                          <span className="text-white font-medium">{entry.name}</span>
                         </td>
                         <td className="py-4 px-4 text-right">
-                          <span className="text-snaggle-green font-semibold text-lg">
+                          <span className="text-[#00FF80] font-semibold text-lg">
                             {entry.referrals}
                           </span>
                         </td>
@@ -459,7 +459,7 @@ const WaitlistLanding = () => {
                   </tbody>
                 </table>
               </div>
-              <div className="mt-6 text-center text-sm text-muted-foreground">
+              <div className="mt-6 text-center text-sm text-white/50">
                 Leaderboard updates in real-time
               </div>
             </CardContent>
@@ -468,19 +468,19 @@ const WaitlistLanding = () => {
       </section>
 
       {/* Footer */}
-      <footer className="container mx-auto px-6 py-8 mt-12 border-t border-border">
-        <div className="text-center text-muted-foreground text-sm">
+      <footer className="container mx-auto px-6 py-8 mt-12 border-t border-white/10">
+        <div className="text-center text-white/50 text-sm">
           © {new Date().getFullYear()} Snaggle. All rights reserved.
         </div>
       </footer>
 
       {/* Sticky Mobile CTA */}
       {!hasJoined && (
-        <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/95 backdrop-blur-sm border-t border-border md:hidden z-50">
+        <div className="fixed bottom-0 left-0 right-0 p-4 bg-neutral-950/95 backdrop-blur-sm border-t border-white/10 md:hidden z-50">
           <Button
             asChild
             size="lg"
-            className="w-full bg-snaggle-green hover:bg-snaggle-green/90 text-background font-bold shadow-glow"
+            className="w-full bg-[#00FF80] hover:bg-[#00FF80]/90 text-black font-bold shadow-[0_0_20px_rgba(0,255,128,0.4)]"
           >
             <Link to="/home">
               Explore Auctions <ArrowRight className="ml-2 h-5 w-5" />
