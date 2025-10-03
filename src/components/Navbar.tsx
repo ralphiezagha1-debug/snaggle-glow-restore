@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Input } from "@/components/ui/input";
 import { Menu, Gavel, User, Wallet, Search } from "lucide-react";
+import { CreditsBadge } from "@/components/store/CreditsBadge";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,8 +16,9 @@ const Navbar = () => {
     { href: "/home", label: "Home" },
     { href: "/live", label: "Live" },
     { href: "/auctions", label: "Auctions" },
+    { href: "/store", label: "Store" },
+    { href: "/drops", label: "Drops" },
     { href: "/categories", label: "Categories" },
-    { href: "/credits", label: "Credits" },
   ];
 
   const accountLinks = [
@@ -54,6 +56,9 @@ const Navbar = () => {
 
           {/* Search Bar & Actions */}
           <div className="flex items-center space-x-4 ml-auto">
+            {/* Credits Badge */}
+            <CreditsBadge />
+            
             {/* Search Bar */}
             <div className="hidden lg:flex relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/50" />

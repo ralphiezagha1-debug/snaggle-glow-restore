@@ -36,6 +36,10 @@ import { Feed } from "./pages/Feed";
 import { Leaderboards } from "./pages/Leaderboards";
 import { AuctionRoomPage } from "./pages/AuctionRoom";
 import Store from "./pages/Store";
+import StorePage from "./pages/store/StorePage";
+import ProductDetailPage from "./pages/store/ProductDetailPage";
+import DropsPage from "./pages/drops/DropsPage";
+import DropDetailPage from "./pages/drops/DropDetailPage";
 
 const queryClient = new QueryClient();
 
@@ -78,6 +82,10 @@ const App = () => (
               <Route path="/orders" element={<Orders />} />
               <Route path="/wallet" element={<Wallet />} />
               <Route path="/store/:username" element={<Store />} />
+              <Route path="/store" element={<StorePage />} />
+              <Route path="/product/:productId" element={<ProductDetailPage />} />
+              <Route path="/drops" element={<DropsPage />} />
+              <Route path="/drops/:dropId" element={<DropDetailPage />} />
               <Route path="/500" element={<Error500 />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
