@@ -66,7 +66,9 @@ const Navbar = () => {
             </div>
 
             {/* Credits Badge */}
-            <CreditsBadge />
+            <div className="ml-4">
+              <CreditsBadge />
+            </div>
 
             {/* Account Actions */}
             <Button variant="ghost" asChild className="text-white/70 hover:text-white hover:bg-white/10">
@@ -74,7 +76,7 @@ const Navbar = () => {
             </Button>
             <Button 
               asChild 
-              className="glass-effect bg-[#007BFF] text-white font-semibold hover:shadow-[0_0_20px_rgba(0,255,128,0.6)] transition-all"
+              className="bg-[#00C46A] hover:bg-[#00D474] text-white font-semibold border-0"
             >
               <Link to="/signup">Get Started</Link>
             </Button>
@@ -134,7 +136,7 @@ const Navbar = () => {
                   </Button>
                   <Button 
                     asChild
-                    className="glass-effect bg-[#007BFF] text-white font-semibold hover:shadow-[0_0_20px_rgba(0,255,128,0.6)] transition-all"
+                    className="bg-[#00C46A] hover:bg-[#00D474] text-white font-semibold"
                   >
                     <Link to="/signup" onClick={() => setIsOpen(false)}>
                       Get Started
