@@ -55,7 +55,7 @@ const Navbar = () => {
           </div>
 
           {/* Search Bar & Actions */}
-          <div className="flex items-center ml-auto">
+          <div className="flex items-center space-x-4 ml-auto">
             {/* Search Bar */}
             <div className="hidden lg:flex relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/50" />
@@ -65,23 +65,21 @@ const Navbar = () => {
               />
             </div>
 
-            {/* Credits Badge with custom spacing */}
-            <div className="mx-8">
+            {/* Credits Badge with precise spacing */}
+            <div className="pl-6">
               <CreditsBadge />
             </div>
 
             {/* Account Actions */}
-            <div className="flex items-center space-x-4">
-              <Button variant="ghost" asChild className="text-white/70 hover:text-white hover:bg-white/10">
-                <Link to="/signin">Sign In</Link>
-              </Button>
-              <Button 
-                asChild 
-                className="bg-[#00C46A] hover:bg-[#00D474] text-white font-semibold border-0"
-              >
-                <Link to="/signup">Get Started</Link>
-              </Button>
-            </div>
+            <Button variant="ghost" asChild className="text-white/70 hover:text-white hover:bg-white/10">
+              <Link to="/signin">Sign In</Link>
+            </Button>
+            <Button 
+              asChild 
+              className="bg-[#00C46A] hover:bg-[#00D474] text-white font-semibold border-0"
+            >
+              <Link to="/signup">Get Started</Link>
+            </Button>
           </div>
 
           {/* Mobile Menu */}
