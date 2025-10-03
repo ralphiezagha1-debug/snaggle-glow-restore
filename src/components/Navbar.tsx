@@ -56,9 +56,6 @@ const Navbar = () => {
 
           {/* Search Bar & Actions */}
           <div className="flex items-center space-x-4 ml-auto">
-            {/* Credits Badge */}
-            <CreditsBadge />
-            
             {/* Search Bar */}
             <div className="hidden lg:flex relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/50" />
@@ -67,6 +64,9 @@ const Navbar = () => {
                 className="pl-10 w-64 bg-white/5 border-white/10 text-white placeholder:text-white/50"
               />
             </div>
+
+            {/* Credits Badge */}
+            <CreditsBadge />
 
             {/* Account Actions */}
             <Button variant="ghost" asChild className="text-white/70 hover:text-white hover:bg-white/10">
