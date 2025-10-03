@@ -66,7 +66,7 @@ const Navbar = () => {
             </div>
 
             {/* Credits Badge */}
-            <div className="ml-8">
+            <div className="ml-12">
               <CreditsBadge />
             </div>
 
