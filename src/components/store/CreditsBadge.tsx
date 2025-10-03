@@ -1,22 +1,12 @@
 import { Coins } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { USER_CREDITS } from "@/data/mockStoreData";
-
 export const CreditsBadge = () => {
-  return (
-    <TooltipProvider>
+  return <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Badge
-            variant="outline"
-            className="flex items-center gap-1.5 px-3 py-1.5 cursor-pointer border-[#00FF80]/30 bg-[#00FF80]/5 text-white hover:bg-[#00FF80]/10 transition-colors"
-          >
+          <Badge variant="outline" className="flex items-center gap-1.5 cursor-pointer border-[#00FF80]/30 bg-[#00FF80]/5 text-white hover:bg-[#00FF80]/10 transition-colors px-[11px] mx-0 my-0 py-[7px]">
             <Coins className="h-4 w-4 text-[#00FF80]" />
             <span className="font-semibold">{USER_CREDITS.toLocaleString()}</span>
             <span className="text-xs text-white/70">Credits</span>
@@ -32,6 +22,5 @@ export const CreditsBadge = () => {
           </div>
         </TooltipContent>
       </Tooltip>
-    </TooltipProvider>
-  );
+    </TooltipProvider>;
 };

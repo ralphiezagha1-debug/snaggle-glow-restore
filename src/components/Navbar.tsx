@@ -5,30 +5,42 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Input } from "@/components/ui/input";
 import { Menu, Gavel, User, Wallet, Search } from "lucide-react";
 import { CreditsBadge } from "@/components/store/CreditsBadge";
-
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-
   const isActive = (path: string) => location.pathname === path;
-
-  const navLinks = [
-    { href: "/home", label: "Home" },
-    { href: "/live", label: "Live" },
-    { href: "/auctions", label: "Auctions" },
-    { href: "/store", label: "Store" },
-    { href: "/drops", label: "Drops" },
-    { href: "/categories", label: "Categories" },
-  ];
-
-  const accountLinks = [
-    { href: "/profile", label: "Profile", icon: User },
-    { href: "/orders", label: "Orders" },
-    { href: "/wallet", label: "Wallet", icon: Wallet },
-  ];
-
-  return (
-    <nav className="sticky top-0 z-50 w-full border-b border-white/10 bg-black/60 backdrop-blur-md">
+  const navLinks = [{
+    href: "/home",
+    label: "Home"
+  }, {
+    href: "/live",
+    label: "Live"
+  }, {
+    href: "/auctions",
+    label: "Auctions"
+  }, {
+    href: "/store",
+    label: "Store"
+  }, {
+    href: "/drops",
+    label: "Drops"
+  }, {
+    href: "/categories",
+    label: "Categories"
+  }];
+  const accountLinks = [{
+    href: "/profile",
+    label: "Profile",
+    icon: User
+  }, {
+    href: "/orders",
+    label: "Orders"
+  }, {
+    href: "/wallet",
+    label: "Wallet",
+    icon: Wallet
+  }];
+  return <nav className="sticky top-0 z-50 w-full border-b border-white/10 bg-black/60 backdrop-blur-md">
       <div className="container mx-auto px-4">
         <div className="flex h-14 items-center justify-between">
           {/* Logo */}
@@ -39,19 +51,9 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6 ml-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                to={link.href}
-                className={`text-sm transition-colors ${
-                  isActive(link.href) 
-                    ? "text-white" 
-                    : "text-white/70 hover:text-white"
-                }`}
-              >
+            {navLinks.map(link => <Link key={link.href} to={link.href} className={`text-sm transition-colors ${isActive(link.href) ? "text-white" : "text-white/70 hover:text-white"}`}>
                 {link.label}
-              </Link>
-            ))}
+              </Link>)}
           </div>
 
           {/* Search Bar & Actions */}
@@ -59,14 +61,11 @@ const Navbar = () => {
             {/* Search Bar */}
             <div className="hidden lg:flex relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/50" />
-              <Input
-                placeholder="Search auctions..."
-                className="pl-10 w-64 bg-white/5 border-white/10 text-white placeholder:text-white/50"
-              />
+              <Input placeholder="Search auctions..." className="pl-10 w-64 bg-white/5 border-white/10 text-white placeholder:text-white/50" />
             </div>
 
             {/* Credits Badge with precise spacing */}
-            <div className="pl-2">
+            <div className="pl-2 px-0">
               <CreditsBadge />
             </div>
 
@@ -74,10 +73,7 @@ const Navbar = () => {
             <Button variant="ghost" asChild className="text-white/70 hover:text-white hover:bg-white/10">
               <Link to="/signin">Sign In</Link>
             </Button>
-            <Button 
-              asChild 
-              className="bg-[#00C46A] hover:bg-[#00D474] text-white font-semibold border-0"
-            >
+            <Button asChild className="bg-[#00C46A] hover:bg-[#00D474] text-white font-semibold border-0">
               <Link to="/signup">Get Started</Link>
             </Button>
           </div>
@@ -93,38 +89,20 @@ const Navbar = () => {
             <SheetContent side="right" className="w-80">
               <div className="flex flex-col space-y-6 mt-6">
                 <div className="flex flex-col space-y-4">
-                  {navLinks.map((link) => (
-                    <Link
-                      key={link.href}
-                      to={link.href}
-                      onClick={() => setIsOpen(false)}
-                      className={`text-lg font-medium transition-colors hover:text-primary ${
-                        isActive(link.href) 
-                          ? "text-primary" 
-                          : "text-foreground"
-                      }`}
-                    >
+                  {navLinks.map(link => <Link key={link.href} to={link.href} onClick={() => setIsOpen(false)} className={`text-lg font-medium transition-colors hover:text-primary ${isActive(link.href) ? "text-primary" : "text-foreground"}`}>
                       {link.label}
-                    </Link>
-                  ))}
+                    </Link>)}
                 </div>
                 
                 <div className="border-t border-border pt-6">
                   <div className="flex flex-col space-y-4">
-                    {accountLinks.map((link) => {
-                      const Icon = link.icon;
-                      return (
-                        <Link
-                          key={link.href}
-                          to={link.href}
-                          onClick={() => setIsOpen(false)}
-                          className="flex items-center space-x-3 text-lg font-medium text-foreground hover:text-primary transition-colors"
-                        >
+                    {accountLinks.map(link => {
+                    const Icon = link.icon;
+                    return <Link key={link.href} to={link.href} onClick={() => setIsOpen(false)} className="flex items-center space-x-3 text-lg font-medium text-foreground hover:text-primary transition-colors">
                           {Icon && <Icon className="h-5 w-5" />}
                           <span>{link.label}</span>
-                        </Link>
-                      );
-                    })}
+                        </Link>;
+                  })}
                   </div>
                 </div>
 
@@ -134,10 +112,7 @@ const Navbar = () => {
                       Sign In
                     </Link>
                   </Button>
-                  <Button 
-                    asChild
-                    className="bg-[#00C46A] hover:bg-[#00D474] text-white font-semibold"
-                  >
+                  <Button asChild className="bg-[#00C46A] hover:bg-[#00D474] text-white font-semibold">
                     <Link to="/signup" onClick={() => setIsOpen(false)}>
                       Get Started
                     </Link>
@@ -148,8 +123,6 @@ const Navbar = () => {
           </Sheet>
         </div>
       </div>
-    </nav>
-  );
+    </nav>;
 };
-
 export default Navbar;
