@@ -66,7 +66,7 @@ const Navbar = () => {
             </div>
 
             {/* Credits Badge with precise spacing */}
-            <div className="pl-6">
+            <div className="pl-2">
               <CreditsBadge />
             </div>
 
